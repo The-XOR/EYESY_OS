@@ -54,9 +54,7 @@ class Root():
     get_file.exposed = True
 
     def wifi_save_net(self, name, pw):
-        cmd = 'wpa_passphrase "' + name + '" "' + pw + '"'
-        #print cmd
-        lines = run_cmd(cmd).splitlines()
+        lines = run_cmd('wpa_passphrase ' + name + ' ' + pw).splitlines()
         
         # from standard rpi wpa_supplicant.conf
         out = "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\nupdate_config=1\ncountry=US\n\n"
