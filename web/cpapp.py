@@ -29,9 +29,9 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 file_operations = imp.load_source('file_operations', current_dir + '/file_operations.py')
 
 
-GRABS_PATH = "/sdcard/Grabs/"
+GRABS_PATH = "/home/music/EYESY_OS/presets/Grabs/"
 MODES_PATH = "/"
-USER_DIR = "/sdcard/"
+USER_DIR = "/home/music/EYESY_OS/"
 
 try:
 	osc_target = liblo.Address(4000)
@@ -135,14 +135,25 @@ class Root():
         elif engine == 'python' :
             os.system("sudo systemctl start eyesy-python.service")
             return 'started python'
+        elif engine == 'pd' :
+            os.system("sudo systemctl start eyesy-pd.service")
+            return 'started pd'
         else :
             return 'no video engine specified'
     start_video_engine.exposed = True
+
+    def power_off(self, engine):
+        os.system("sudo poweroff")
+        return 'powered off'
+    power_off.exposed = True
 
     def stop_video_engine(self, engine):
         # stop them both
         os.system("sudo systemctl stop eyesy-oflua.service")
         os.system("sudo systemctl stop eyesy-python.service")
+        if engine == 'pd' or engine == 'all':
+            os.system("sudo systemctl stop eyesy-pd.service")
+            return 'stopped pd'
     stop_video_engine.exposed = True
 
     def save_new(self, name, contents):
@@ -153,7 +164,7 @@ class Root():
         liblo.send(osc_target, "/reload", 1)
         return "reloaded mode"
     reload_mode.exposed = True
- 
+
     def save(self, fpath, contents):
         p = fpath
         mode_path = MODES_PATH+p
@@ -162,7 +173,7 @@ class Root():
         print contents
         return "SAVED " + fpath
     save.exposed = True
-   
+
     def get_grabs(self):
         images = []
         for filepath in sorted(glob.glob(GRABS_PATH+'*.jpg')):
@@ -207,7 +218,7 @@ class Root():
         folder = dst
         filename = upload.filename
         size = 0
-        filepath = file_operations.BASE_DIR + folder + '/' + filename 
+        filepath = file_operations.BASE_DIR + folder + '/' + filename
         filepath = file_operations.check_and_inc_name(filepath)
         with open(filepath, 'wb') as newfile:
             while True:
@@ -220,11 +231,11 @@ class Root():
         p, ext = os.path.splitext(filepath)
         cherrypy.response.headers['Content-Type'] = "application/json"
         return '{"files":[{"name":"x","size":'+str(size)+',"url":"na","thumbnailUrl":"na","deleteUrl":"na","deleteType":"DELETE"}]}'
-        
+
     upload.exposed = True
-  
+
     def fmdata(self, **data):
-        print "data op request" 
+        print "data op request"
         ret = ''
         if 'operation' in data :
             cherrypy.response.headers['Content-Type'] = "application/json"
@@ -251,6 +262,7 @@ class Root():
             return "no operation specified"
 
     fmdata.exposed = True
+
 
 
 

@@ -1,7 +1,8 @@
 var appBaseURL = 'http://' + location.host
 var fsurl = appBaseURL + '/fmdata'
-var workingDir = '/sdcard/';
-var baseDirLabel = 'Home';
+// Note that this workingDir is relative to the BASE_DIR in file_operations.py.
+var workingDir = '';
+var baseDirLabel = 'Presets';
 var clipboard = {};
 
 var editor = null
@@ -87,28 +88,28 @@ function renderFilesTable(d){
     $("#ftable").empty();
     var path = '';
     d.forEach(function(c){
-        var basename = c.path.split('/').pop();
-        var sizeType = 'Folder'  // display size or Folder for folder
-        if (c.type == 'folder'){
-            sizeType = 'Folder'
-            var trow = $('<tr class="fsdir">');
-            var tdata = $('<td class="fsdirname"></td>');
-            tdata.append(nodeNameWithIcon(c.path, c.type));
-        } else {
-            sizeType = c.size;
-            var trow = $('<tr class="fsfile">');
-            var tdata = $('<td class="fsfilename">');
-            var dlButton = $('<div class="dl-but"><a href="'+appBaseURL+'/download?fpath='+encodeURIComponent(c.path)+'&cb=cool">\u2B07</a></div>');
-            tdata.append(dlButton);
-            tdata.append(nodeNameWithIcon(c.path, c.type));
-        }
-        trow.data("path", c.path);
-        trow.data("type", c.type);
-        var checkbox = $('<td><div class="checkbox ff-select"><input type="checkbox" value=""></div></td>');
-        trow.append(checkbox);
-        trow.append(tdata);
-        //trow.append('<td>'+sizeType+'</td>');
-        $("#ftable").append(trow);
+            var basename = c.path.split('/').pop();
+            var sizeType = 'Folder'  // display size or Folder for folder
+            if (c.type == 'folder'){
+                sizeType = 'Folder'
+                var trow = $('<tr class="fsdir">');
+                var tdata = $('<td class="fsdirname"></td>');
+                tdata.append(nodeNameWithIcon(c.path, c.type));
+            } else {
+                sizeType = c.size;
+                var trow = $('<tr class="fsfile">');
+                var tdata = $('<td class="fsfilename">');
+                var dlButton = $('<div class="dl-but"><a href="'+appBaseURL+'/download?fpath='+encodeURIComponent(c.path)+'&cb=cool">\u2B07</a></div>');
+                tdata.append(dlButton);
+                tdata.append(nodeNameWithIcon(c.path, c.type));
+            }
+            trow.data("path", c.path);
+            trow.data("type", c.type);
+            var checkbox = $('<td><div class="checkbox ff-select"><input type="checkbox" value=""></div></td>');
+            trow.append(checkbox);
+            trow.append(tdata);
+            //trow.append('<td>'+sizeType+'</td>');
+            $("#ftable").append(trow);
     });
     window.scrollTo(0,0);
 }
@@ -120,9 +121,9 @@ function renderBreadcrumb () {
     //var breadelement = $('<li class="fsdir"><a href="#">'+baseDirLabel+'</a></li>');
     //breadelement.data("path", absPath);
    // $("#fsbreadcrumb").append(breadelement);
-    var path = workingDir.split('/');
+        var path = workingDir.split('/');
     var count = 0;
-    path.forEach(function(p) {
+        path.forEach(function(p) {
         if (p) {
             absPath +=  p + '/';
             if (count == 0) var breadelement = $('<li class="fsdir">' + baseDirLabel + '/</li>');
@@ -130,7 +131,7 @@ function renderBreadcrumb () {
             count++;
             breadelement.data("path", absPath);
             $("#fsbreadcrumb").append(breadelement);
-        }
+    }
     });
 }
 
@@ -171,11 +172,11 @@ function alertDialog(msg){
 
 function pasteCopyDialog(){
     newModal('Copy');
-    addModalBody('<p>Copy files: </p>');   
+    addModalBody('<p>Copy files: </p>');
     clipboard.nodes.forEach(function(n) {
-        addModalBody(nodeNameWithIcon(n.path,n.type));   
-    });       
-    addModalBody('<p>to current folder?</p>');   
+        addModalBody(nodeNameWithIcon(n.path,n.type));
+    });
+    addModalBody('<p>to current folder?</p>');
     addModalButton('Cancel', hideModal)
     addModalButton('Paste', function(){
         hideModal();
@@ -196,11 +197,11 @@ function pasteCopyDialog(){
 
 function pasteMoveDialog(){
     newModal('Move');
-    addModalBody('<p>Move files: </p>');   
+    addModalBody('<p>Move files: </p>');
     clipboard.nodes.forEach(function(n) {
-        addModalBody(nodeNameWithIcon(n.path,n.type));  
-    });       
-    addModalBody('<p>to current folder?</p>');  
+        addModalBody(nodeNameWithIcon(n.path,n.type));
+    });
+    addModalBody('<p>to current folder?</p>');
     addModalButton('Cancel', hideModal);
     addModalButton('Move',  function(){
         hideModal();
@@ -220,14 +221,14 @@ function pasteMoveDialog(){
 }
 
 function deleteDialog(){
-    var selectedNodes = getSelectedNodes(); 
-    
+    var selectedNodes = getSelectedNodes();
+
     if (selectedNodes.length > 0) {
         newModal('Delete');
         addModalBody('<p>Permanentamentally remove these files?</p>');
-        
+
         selectedNodes.forEach(function(n) {
-            addModalBody(nodeNameWithIcon(n.path,n.type));   
+            addModalBody(nodeNameWithIcon(n.path,n.type));
         });
 
         addModalButton('Cancel', hideModal);
@@ -259,7 +260,7 @@ function zipDialog(){
         if (selectedNodes[0].type == 'folder') {
             gotaZip = true;
             newModal('Zip Folder');
-            addModalBody('<p>Zip <b>'+basename+'?</b></p>');   
+            addModalBody('<p>Zip <b>'+basename+'?</b></p>');
             addModalButton('Cancel', hideModal)
             addModalButton('Zip', function(){
                 hideModal();
@@ -276,8 +277,8 @@ function zipDialog(){
             });
             showModal();
         }
-    } 
-    if (!gotaZip) alertDialog('<p>Choose one folder to zip.</p>');   
+    }
+    if (!gotaZip) alertDialog('<p>Choose one folder to zip.</p>');
 }
 
 function unzipDialog(){
@@ -291,7 +292,7 @@ function unzipDialog(){
         if (extension == 'zip') {
             gotaZip = true;
             newModal('Unzip');
-            addModalBody('<p>Unzip <b>'+basename+'</b> into current folder?</p>');   
+            addModalBody('<p>Unzip <b>'+basename+'</b> into current folder?</p>');
             addModalButton('Cancel', hideModal)
             addModalButton('Unzip', function(){
                 hideModal();
@@ -308,8 +309,8 @@ function unzipDialog(){
             });
             showModal();
         }
-    } 
-    if (!gotaZip) alertDialog('<p>Choose one .zip file to unzip.</p>');   
+    }
+    if (!gotaZip) alertDialog('<p>Choose one .zip file to unzip.</p>');
 }
 
 function renameDialog() {
@@ -335,8 +336,8 @@ function renameDialog() {
             clipboard = {};
         });
         showModal();
-    } 
-    else alertDialog('<p>Choose one item to rename.</p>');  
+    }
+    else alertDialog('<p>Choose one item to rename.</p>');
 }
 
 function newFolderDialog() {
@@ -372,18 +373,18 @@ function openFileDialog(path) {
 }
 
 $(function () {
- 
-    // this disables page while loading things 
-    $(document).ajaxStart (function() { 
+
+    // this disables page while loading things
+    $(document).ajaxStart (function() {
             $('body').addClass("loading");
             console.log("ajax start")
     });
         // When ajaxStop is fired, rmeove 'loading' from body class
-    $(document).ajaxStop (function() { 
-            $('body').removeClass("loading"); 
-            console.log("ajax stop");        
+    $(document).ajaxStop (function() {
+            $('body').removeClass("loading");
+            console.log("ajax stop");
     });
-        
+
     editor = ace.edit("editor");
     editor.setTheme("ace/theme/merbivore_soft");
     //editor.getSession().setMode("ace/mode/lua");
@@ -394,7 +395,7 @@ $(function () {
 
     $('#fileupload').fileupload({
 		// DISABLE drag and drop uploading
-       	dropZone: null,  
+       	dropZone: null,
 		url: appBaseURL + '/upload',
         dataType: 'json',
         formData: function() {
@@ -489,6 +490,12 @@ $(function () {
         });
     });
 
+    $("#power-off").click(function(){
+        $.get(appBaseURL + '/power_off/?engine=all', function(data) {
+            console.log(data);
+        });
+    });
+
     $("#reload-mode").click(function(){
         $.post(appBaseURL + "/reload_mode", {name: currentEditorFile })
         .done(function(data) {
@@ -496,7 +503,7 @@ $(function () {
         });
     });
 
-    $("#save").click(function() {	 
+    $("#save").click(function() {
 	$.post(appBaseURL + "/save", { fpath: currentEditorFile, contents: editor.getValue() })
 	.done(function(data) {
             console.log(data);
@@ -537,9 +544,9 @@ $(function () {
             if (clipboard.operation == "copy") pasteCopyDialog();
             else if (clipboard.operation == "cut") pasteMoveDialog();
         }
-        else alertDialog('<p>Choose files then select Copy or Cut to move.</p>');   
+        else alertDialog('<p>Choose files then select Copy or Cut to move.</p>');
     });
-   
+
     $("#delete-but").click(deleteDialog);
 
     $("#zip-but").click(zipDialog);
@@ -572,8 +579,8 @@ $(function () {
     })
     .fail(function () {
         console.log('oops');
-    });    
-    
+    });
+
     $.get(appBaseURL + '/wifi_get_ap', function(data) {
 	ap = JSON.parse(data);
 	$('#wifi-ap-name').val(ap.name)
