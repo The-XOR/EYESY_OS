@@ -4,9 +4,9 @@ Requires=eyesy-web-socket.service
 
 [Service]
 Type=simple
-User=pi
-Group=pi
-WorkingDirectory=/home/pi/Eyesy/web
+User=music
+Group=music
+WorkingDirectory=/home/music/EYESY_OS/web
 ExecStart=cherryd -i cpapp -c prod.conf
 
 [Install]

@@ -3,9 +3,9 @@ Description=Web socket server for Eyesy web server.
 
 [Service]
 Type=simple
-User=pi
-Group=pi
-WorkingDirectory=/home/pi/Eyesy/web/node
+User=music
+Group=music
+WorkingDirectory=/home/music/EYESY_OS/web/node
 ExecStart=node websockettailer.js
 
 [Install]

@@ -3,7 +3,7 @@ Description=Python Pygame Video Engine
 
 [Service] 
 Type=simple
-WorkingDirectory=/home/pi/Eyesy/engines/python
+WorkingDirectory=/home/music/EYESY_OS/engines/python
 ExecStart=nohup python -u main.py
 
 [Install] 

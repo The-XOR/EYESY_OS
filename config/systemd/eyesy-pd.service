@@ -3,10 +3,10 @@ Description=Pd OSC hardware bridge for Eyesy
 
 [Service] 
 Type=simple 
-User=pi
-Group=pi
-WorkingDirectory=/home/pi/Eyesy
-ExecStart=/usr/bin/pd -alsamidi -mididev 1 -nogui -noaudio -path /home/pi/Eyesy/pd/externals pd/main.pd
+User=music
+Group=music
+WorkingDirectory=/home/music/EYESY_OS
+ExecStart=/usr/bin/pd -alsamidi -mididev 1 -nogui -noaudio -path /home/music/EYESY_OS/pd/externals pd/main.pd
 
 [Install] 
 WantedBy=multi-user.target

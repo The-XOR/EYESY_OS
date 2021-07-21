@@ -45,6 +45,10 @@ sudo rm install_codecs.sh
 #popd
 
 
-#sudo systemctl enable eyesy-web.service
-#sudo systemctl enable eyesy-web-socket.service
-#sudo systemctl enable eyesy-pd.service
+sudo systemctl enable eyesy-web.service
+sudo systemctl enable eyesy-web-socket.service
+sudo systemctl enable eyesy-pd.service
+
+sudo systemctl start eyesy-web.service
+sudo systemctl start eyesy-web-socket.service
+
