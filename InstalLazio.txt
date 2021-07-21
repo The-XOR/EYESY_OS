@@ -42,7 +42,13 @@ installare prerequisiti:
 sudo apt-get install --no-install-recommends screen vim git make xserver-xorg xinit raspberrypi-ui-mods perl
 reboot
 
+git clone https://github.com/The-XOR/EYESY_OS.git --depth=1
+cd EYESY_OS
+./deploy.sh
+reboot
 
+startx
+Avviare puredata
 
 
 
@@ -70,24 +76,19 @@ annotarsi il n. di card della scheda che si vuole utilizzare
 
 y
 
-cd ~/Eyesy/config 
+cd ~/EYESY_OS/config 
 nano asound.conf <----- inserire qui il numero di card annotato in precedenza (per default, 1)
 fare la stessa cosa (modificare -dhw:XXX) per il file jackdrc
 
 
-git clone https://github.com/The-XOR/Eyesy.git
-cd Eyesy
-./deploy.sh
-reboot
 
-Avviare puredata
 
 
 
 ### Usage:
  - Connect a display to the first hdmi out
  - Boot up your RasPi
- - (Via SSH) Run the `~/Eyesy/start_web.sh` script to start the web services. Then you can start/stop the video engine from the web editor - see below.
+ - (Via SSH) Run the `~/EYESY_OS/start_web.sh` script to start the web services. Then you can start/stop the video engine from the web editor - see below.
 
    In order to control Eyesy you
    will have to use the TouchOSC Android (or iOS) app (see below) or a MIDI controller.
@@ -119,9 +120,6 @@ Abilitare OpenGL Full (G3)
 The web editor lets you edit the pygame scripts that generate the visuals on the fly. It should be accessible at http://eyesy.local:8080/ (or IP:8080 where IP is the current ip adress of your Pi)
 
 See the Eyesy manual for more details on using the web editor.
-
-### Uninstall:
-Simply run: `./uninstall.sh`
 
 ### Rem:
 

@@ -21,16 +21,11 @@ sudo pip install psutil cherrypy numpy JACK-Client
 sudo apt-get install --no-install-recommends -y puredata
 
 # Node packages
-cd web/node && npm install && cd ../..
+cd web/node && npm install && cd ~/EYESY_OS
 
 # Move service files into place and make sure perms are set correctly.
-sudo chmod 644 slsystemd/*
-sudo cp systemd/* /etc/systemd/system
-
-# Move PD into place.
-#cp pd/externals/*.pd_linux ../../pdexternals
-
-# Reload services.
+sudo chmod 644 ./config/systemd/*
+sudo cp ./config/systemd/* /etc/systemd/system
 sudo systemctl daemon-reload
 
 cd /home/music/EYESY_OS

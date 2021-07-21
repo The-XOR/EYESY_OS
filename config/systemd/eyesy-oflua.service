@@ -1,0 +1,10 @@
+[Unit] 
+Description=oFLua Video Engine
+
+[Service] 
+Type=simple 
+WorkingDirectory=/home/pi/Eyesy/engines/oflua
+ExecStart=/home/pi/Eyesy/engines/oflua/run.sh
+
+[Install] 
+WantedBy=multi-user.target
