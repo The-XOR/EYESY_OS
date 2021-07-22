@@ -39,7 +39,7 @@ disable need for passwd with sudo:
 2. change 'pi' to 'music'
                           
 installare prerequisiti:
-sudo apt-get install --no-install-recommends screen vim git make xserver-xorg xinit raspberrypi-ui-mods perl
+sudo apt-get install --no-install-recommends screen vim git make xserver-xorg xinit raspberrypi-ui-mods perl mc
 reboot
 
 git clone https://github.com/The-XOR/EYESY_OS.git --depth=1

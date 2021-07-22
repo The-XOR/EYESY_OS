@@ -4,7 +4,7 @@ import shutil
 import cherrypy
 
 # Making assumptions about install location here.
-BASE_DIR = "/home/music/EYESY_OS/presets/"
+BASE_DIR = "/"
 
 #TODO check all the paths here
 def check_path(path) :
