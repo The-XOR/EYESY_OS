@@ -3,7 +3,6 @@ import os
 import shutil
 import cherrypy
 
-# Making assumptions about install location here.
 BASE_DIR = "/"
 
 #TODO check all the paths here

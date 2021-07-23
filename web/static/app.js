@@ -1,8 +1,7 @@
 var appBaseURL = 'http://' + location.host
 var fsurl = appBaseURL + '/fmdata'
-// Note that this workingDir is relative to the BASE_DIR in file_operations.py.
-var workingDir = '/home/music/EYESY_OS/presets/';
-var baseDirLabel = 'Presets';
+var workingDir = '/sdcard/';
+var baseDirLabel = 'Home';
 var clipboard = {};
 
 var editor = null

@@ -10,16 +10,15 @@ Eyesy Manual : https://www.critterandguitari.com/manual?m=EYESY_Manual#eyesy%E2%
 ### Installation :
 
 Scaricare raspbian lite
-sudo raspi-config: configurare WLAN, abilitare SSH
-
-1. Change password: coolmusic
-2. Network > Hostname (eyesy)
-3. Network > Wifi (set SSID/password)
-4. Interfacing > SSH (on)
-5. Localization > timezone, keyboard, 
-6. Exit, Reboot
-                   
-relogin (attenzione: ora la password è coolmusic)
+sudo raspi-config: 
+- configurare WLAN
+- Change password: music
+- Network > Hostname: eyesy
+- abilitare SSH
+-Localization: timezone, keyboard, wifi
+--- Exit, Reboot
+                                     
+relogin (attenzione: ora la password è music)
 sudo apt-get update
 sudo apt-get upgrade
 sudo reboot
@@ -28,24 +27,40 @@ sudo reboot
 
 1  `sudo passwd root`  --> cambiare la password in "root" (!)
 2. logout, login as root
-3. `usermod -l music -d /home/music -m pi`
-4. `groupmod --new-name music pi`
-5. exit, login as music
-6. `sudo passwd -l root`
+Creare user 'music':
+  usermod -l music -d /home/music -m pi
+  groupmod --new-name music pi
+
+logout, quindi login as music
 
 disable need for passwd with sudo:
+sudo passwd -l root
+sudo nano /etc/sudoers.d/010_pi-nopasswd
+change 'pi' to 'music'
+reboot
 
-1. sudo nano /etc/sudoers.d/010_pi-nopasswd
-2. change 'pi' to 'music'
-                          
+raspi-config
+selezionare driver full KMS
+(raspberry si riavvierà)
+   
 installare prerequisiti:
 sudo apt-get install --no-install-recommends screen vim git make xserver-xorg xinit raspberrypi-ui-mods perl mc
 reboot
 
+
+A questo punto, con partition manager RIPARTIZIONARE la sdcard creando una terza partizione:
+/boot (part 1)
+/rootfs (part 2)
+/ <---- Nuova partizione (part 3), dove verranno memorizzati tutti i preset
+Per fare ciò, la sticca usba NOn deve essere montata (tasto destro/Unmount DA DENTRO PARTITION MANAGER)
+
+
 git clone https://github.com/The-XOR/EYESY_OS.git --depth=1
 cd EYESY_OS
+%%%%%%%%%%%%%%%
 ./deploy.sh
 reboot
+/sdcard/System/wpa_supplicant.conf: mettere credenziali wifi
 
 startx
 Avviare puredata
@@ -64,6 +79,7 @@ sudo nano /boot/config.txt
 settare 
 # Enable audio (loads snd_bcm2835)
 dtparam=audio=off  <-----------  impostare ad OFF l'audio interno del raspoberro
+
 
 
 

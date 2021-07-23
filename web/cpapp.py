@@ -29,9 +29,9 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 file_operations = imp.load_source('file_operations', current_dir + '/file_operations.py')
 
 
-GRABS_PATH = "/home/music/EYESY_OS/presets/Grabs/"
+GRABS_PATH = "/sdcard/Grabs/"
 MODES_PATH = "/"
-USER_DIR = "/home/music/EYESY_OS/"
+USER_DIR = "/sdcard/"
 
 try:
 	osc_target = liblo.Address(4000)

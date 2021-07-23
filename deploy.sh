@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -ex
 
 # MODIFICARE QUESTO FILE e mettere il numero di scheda audio voluta
@@ -21,40 +20,41 @@ sudo pip install psutil cherrypy numpy JACK-Client
 sudo apt-get install --no-install-recommends -y puredata
 
 # Node packages
-cd web/node && npm install && cd ~/EYESY_OS
+cd web/node
+npm install
 
+cd ~/EYESY_OS
 # Move service files into place and make sure perms are set correctly.
-sudo chmod 644 ./config/systemd/*
-sudo cp ./config/systemd/* /etc/systemd/system
-sudo cp ./config/etc/* /etc/
-sudo cp -r ./config/lib/* /lib/
-sudo cp -r ./config/opt/* /opt/
+# copy files
+mkdir tmp
+cp -r .config/rootfs tmp/
+chown -R root:root tmp/rootfs
+chown -R music:music tmp/rootfs/home/music
+cp -fr --preserve=mode,ownership tmp/rootfs/* /
+rm -fr tmp
+mv ./config/openFrameworks /home/music/
+sync
+
+sudo cp --remove-destination ./config/cmdline.txt /boot/
+sudo cp --remove-destination ./config/config.txt /boot/
+sudo type .config/cat2fstab>>/etc/fstab
 
 sudo systemctl daemon-reload
 
 cd /home/music/EYESY_OS
-
-mv ./config/openFrameworks /home/music/
-mv ./config/openFrameworks-10 /home/music/
 
 sudo ./install_dependencies.sh
 sudo ./install_codecs.sh
 sudo rm install_dependencies.sh
 sudo rm install_codecs.sh
 
-
 # ------------------ todo: controllare se servono ancora
 #pushd /usr/lib/arm-linux-gnueabihf
 #sudo cp librtaudio.so librtaudio.so.5
 #popd
 
-
-#sudo systemctl enable eyesy-web.service
-#sudo systemctl enable eyesy-web-socket.service
-#sudo systemctl enable eyesy-pd.service
-
-#sudo systemctl start eyesy-web.service
-#sudo systemctl start eyesy-web-socket.service
+sudo systemctl enable eyesy-web.service
+sudo systemctl enable eyesy-web-socket.service
 
 # configure systemd stuff
 systemctl disable eyesy-oflua.service  
@@ -65,8 +65,10 @@ systemctl enable splashscreen.service
 systemctl enable ttymidi.service  
 
 # networking started by eyesy-pd
-systemctl disable dhcpcd.service
-systemctl disable wpa_supplicant.service
+#systemctl disable dhcpcd.service
+#systemctl disable wpa_supplicant.service
 systemctl disable createap.service  
+sudo systemctl start eyesy-web.service
+sudo systemctl start eyesy-web-socket.service
 
 systemctl daemon-reload
