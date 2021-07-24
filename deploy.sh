@@ -38,6 +38,7 @@ cp /etc/fstab ./tmp
 sudo cp --remove-destination ./tmp/fstab /etc/fstab
 sudo rm -fr tmp
 mv ./config/openFrameworks /home/music/
+sudo mv .config/libs/* /usr/lib/arm-linux-gnueabihf/
 sync
 
 sudo cp --remove-destination ./config/cmdline.txt /boot/
