@@ -62,30 +62,10 @@ reboot
 
 ./deploy2.sh
 
-/sdcard/System/wpa_supplicant.conf: mettere credenziali wifi
-
 startx
 Avviare puredata
 
-
-
-
-
-
-
-
-
-
-
-sudo nano /boot/config.txt
-settare 
-# Enable audio (loads snd_bcm2835)
-dtparam=audio=off  <-----------  impostare ad OFF l'audio interno del raspoberro
-
-
-
-
-
+  Note - EYESY is looking for your sound card to be the "default" device.
 Inserire nello slotto usbo la sound card che si intende utilizzare (per es la cara vecchia barbonger uca222) aplay -l Si ottiene un output tipo questo:
 
 **** List of PLAYBACK Hardware Devices **** card 1: CODEC [USB Audio CODEC], device 0: USB Audio [USB Audio] Subdevices: 1/1 Subdevice #0: subdevice #0
@@ -98,25 +78,7 @@ cd ~/EYESY_OS/config
 nano asound.conf <----- inserire qui il numero di card annotato in precedenza (per default, 1)
 fare la stessa cosa (modificare -dhw:XXX) per il file jackdrc
 
-
-
-
-
-
-### Usage:
- - Connect a display to the first hdmi out
- - Boot up your RasPi
- - (Via SSH) Run the `~/EYESY_OS/start_web.sh` script to start the web services. Then you can start/stop the video engine from the web editor - see below.
-
-   In order to control Eyesy you
-   will have to use the TouchOSC Android (or iOS) app (see below) or a MIDI controller.
    
-   You will also need a sound card. Sound card setup is beyond the scope of this readme and will depend on your specific device.
-   
-   Note - EYESY is looking for your sound card to be the "default" device.
-   
-raspi-config
-Abilitare OpenGL Full (G3)
 
 ### Control:
 

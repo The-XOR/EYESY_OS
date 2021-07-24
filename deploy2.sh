@@ -2,29 +2,31 @@
 
 cd ~/EYESY_OS
 sudo chown -R music:music ./config/presets
-sudo cp --remove-destination ./config/presets /sdcard
+sudo chown -R music:music /sdcard
+cp --remove-destination -r ./config/presets/* /sdcard
+sudo cp --remove-destination /etc/wpa_supplicant/wpa_supplicant.conf /sdcard/System/wpa_supplicant.conf
 
 # ------------------ todo: controllare se servono ancora
 #pushd /usr/lib/arm-linux-gnueabihf
 #sudo cp librtaudio.so librtaudio.so.5
 #popd
 
-sudo systemctl enable eyesy-web.service
-sudo systemctl enable eyesy-web-socket.service
+#sudo systemctl enable eyesy-web.service
+#sudo systemctl enable eyesy-web-socket.service
+#sudo systemctl start eyesy-web.service
+#sudo systemctl start eyesy-web-socket.service
 
 # configure systemd stuff
-systemctl disable eyesy-oflua.service  
-systemctl enable cherrypy.service  
-systemctl enable eyesy-pd.service  
-systemctl enable eyesy-python.service  
-systemctl enable splashscreen.service  
-systemctl enable ttymidi.service  
+sudo systemctl disable eyesy-oflua.service  
+sudo systemctl enable cherrypy.service  
+sudo systemctl enable eyesy-pd.service  
+sudo systemctl enable eyesy-python.service  
+sudo systemctl enable splashscreen.service  
+sudo systemctl enable ttymidi.service  
 
 # networking started by eyesy-pd
 #systemctl disable dhcpcd.service
 #systemctl disable wpa_supplicant.service
-systemctl disable createap.service  
-sudo systemctl start eyesy-web.service
-sudo systemctl start eyesy-web-socket.service
+sudo systemctl disable createap.service  
 
-systemctl daemon-reload
+sudo systemctl daemon-reload
