@@ -2,7 +2,7 @@
 set -ex
 
 # MODIFICARE QUESTO FILE e mettere il numero di scheda audio voluta
-sudo cp --remove-destination config/asound.conf /etc/asound.conf
+sudo cp --remove-destination ./config/asound.conf /etc/asound.conf
 
 # Add music user to tty
 sudo usermod -a -G tty music
