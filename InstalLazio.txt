@@ -44,7 +44,7 @@ selezionare driver full KMS
 (raspberry si riavvierà)
    
 installare prerequisiti:
-sudo apt-get install --no-install-recommends screen vim git make xserver-xorg xinit raspberrypi-ui-mods perl mc
+sudo apt-get install -y --no-install-recommends screen vim git make xserver-xorg xinit raspberrypi-ui-mods perl mc
 reboot
 
 
@@ -57,9 +57,11 @@ Per fare ciò, la sticca usba NOn deve essere montata (tasto destro/Unmount DA D
 
 git clone https://github.com/The-XOR/EYESY_OS.git --depth=1
 cd EYESY_OS
-%%%%%%%%%%%%%%%
 ./deploy.sh
-reboot
+reboot  
+
+./deploy2.sh
+
 /sdcard/System/wpa_supplicant.conf: mettere credenziali wifi
 
 startx

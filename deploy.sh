@@ -13,7 +13,7 @@ curl -sL https://deb.nodesource.com/setup_14.x | sed -e 's/apt-get /apt-get --al
 
 # Debian packages
 sudo apt install -y python-pygame python-liblo python-alsaaudio python-pip libffi-dev nodejs
-sudo apt install libboost-filesystem1.62.0
+sudo apt install -y libboost-filesystem1.62.0
 
 # Python packages
 sudo pip install psutil cherrypy numpy JACK-Client
@@ -27,19 +27,19 @@ cd ~/EYESY_OS
 # Move service files into place and make sure perms are set correctly.
 # copy files
 mkdir tmp
-cp -r .config/rootfs tmp/
-chown -R root:root tmp/rootfs
-chown -R music:music tmp/rootfs/home/music
-cp -fr --preserve=mode,ownership tmp/rootfs/* /
-rm -fr tmp
+cp -r ./config/rootfs tmp/
+sudo chown -R root:root tmp/rootfs
+sudo chown -R music:music tmp/rootfs/home/music
+sudo cp -fr --preserve=mode,ownership tmp/rootfs/* /
+sudo cat ./config/cat2fstab>>./tmp/fstab
+cp /etc/fstab ./tmp
+sudo cp --remove-destination ./tmp/fstab /etc/fstab
+sudo rm -fr tmp
 mv ./config/openFrameworks /home/music/
 sync
 
 sudo cp --remove-destination ./config/cmdline.txt /boot/
 sudo cp --remove-destination ./config/config.txt /boot/
-sudo type .config/cat2fstab>>/etc/fstab
-
-sudo systemctl daemon-reload
 
 cd /home/music/EYESY_OS
 
@@ -47,28 +47,3 @@ sudo ./install_dependencies.sh
 sudo ./install_codecs.sh
 sudo rm install_dependencies.sh
 sudo rm install_codecs.sh
-
-# ------------------ todo: controllare se servono ancora
-#pushd /usr/lib/arm-linux-gnueabihf
-#sudo cp librtaudio.so librtaudio.so.5
-#popd
-
-sudo systemctl enable eyesy-web.service
-sudo systemctl enable eyesy-web-socket.service
-
-# configure systemd stuff
-systemctl disable eyesy-oflua.service  
-systemctl enable cherrypy.service  
-systemctl enable eyesy-pd.service  
-systemctl enable eyesy-python.service  
-systemctl enable splashscreen.service  
-systemctl enable ttymidi.service  
-
-# networking started by eyesy-pd
-#systemctl disable dhcpcd.service
-#systemctl disable wpa_supplicant.service
-systemctl disable createap.service  
-sudo systemctl start eyesy-web.service
-sudo systemctl start eyesy-web-socket.service
-
-systemctl daemon-reload
