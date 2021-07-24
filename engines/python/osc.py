@@ -1,3 +1,4 @@
+import os
 import sys
 import liblo
 
@@ -45,7 +46,7 @@ def trig_callback(path, args) :
 def audio_scale_callback(path, args):
     global etc
     val = args[0]
-    etc.audio_scale = val
+    etc.audio_scale = float(val)
 
 def audio_trig_enable_callback(path, args):
     global etc
@@ -58,6 +59,10 @@ def link_present_callback(path, args):
     val = args[0]
     if val == 1 : etc.link_connected = True
     else : etc.link_connected = False
+    # using this a sign of life of the pd patch:
+    if not(etc.params_sent_pd):
+        etc.recall_shift_params()
+        send_params_pd()
 
 def mblob_callback(path, args):
     global etc, cc_last, pgm_last, notes_last, clk_last
@@ -107,6 +112,20 @@ def reload_callback(path, args):
     print "reloading: " + str(etc.mode)
     etc.reload_mode()
 
+def midi_ch_callback(path, args):
+    global etc
+    val = args[0]
+    etc.midi_ch = val
+    send("/midi_ch", val)
+
+def trigger_source_callback(path, args):
+    global etc
+    val = args[0]
+    etc.trigger_source = val
+    if val == 0 : etc.audio_trig_enable = True
+    else : etc.audio_trig_enable = False
+    send("/trigger_source", val)
+
 def knobs_callback(path, args):
     global etc
     k1, k2, k3, k4, k5, k6 = args
@@ -117,13 +136,44 @@ def knobs_callback(path, args):
     etc.knob_hardware[3] = float(k4) / 1023
     etc.knob_hardware[4] = float(k5) / 1023
 
+def knob1_callback(path, args):
+    global etc
+    k1 = args[0]
+    #print "received message: k1 " + str(args)
+    etc.knob_hardware[0] = float(k1) / 1023
+def knob2_callback(path, args):
+    global etc
+    k2 = args[0]
+    #print "received message: k2 " + str(args)
+    etc.knob_hardware[1] = k2 / 1023
+def knob3_callback(path, args):
+    global etc
+    k3 = args[0]
+    #print "received message: k3 " + str(args)
+    etc.knob_hardware[2] = k3 / 1023
+def knob4_callback(path, args):
+    global etc
+    k4 = args[0]
+    #print "received message: k4 " + str(args)
+    etc.knob_hardware[3] = k4 / 1023
+def knob5_callback(path, args):
+    global etc
+    k5 = args[0]
+    #print "received message: k5 " + str(args)
+    etc.knob_hardware[4] = k5 / 1023
+
 def shift_callback(path, args) :
     global etc
-    stat = args
-    if stat[0] == 1 : 
+    stat = int(args[0])
+    print "shift: " + str(stat)
+    if stat == 1 : 
         etc.shift = True
         etc.set_osd(False)
-    else : etc.shift = False
+        send("/shift", stat)
+    else : 
+        etc.shift = False
+        etc.save_shift_params()
+    print "shift: " + str(etc.shift)
 
 def shift_line_callback(path, args) :
     global etc
@@ -139,6 +189,7 @@ def keys_callback(path, args) :
     if (k == 5 and v > 0) : etc.next_mode()
     if (k == 4 and v > 0) : etc.prev_mode()
     if (k == 10) : etc.update_trig_button(v)
+    if (k == 11) : os.system("sudo poweroff")
     if (k == 9 and v > 0) : etc.screengrab_flag = True
     if (k == 6 and v > 0) : etc.prev_scene()
     if (k == 8) : etc.save_or_delete_scene(v)
@@ -146,9 +197,15 @@ def keys_callback(path, args) :
     if (k == 1 and v > 0) : 
         if (etc.osd) : etc.set_osd(False)
         else : etc.set_osd(True)
-    if (k == 3 and v > 0) : 
+    if (k == 3 and v > 0) :
         if (etc.auto_clear) : etc.auto_clear = False
         else : etc.auto_clear = True
+
+def skey_callback(path, args) :
+    splitpath = path.split("/")
+    k = int(splitpath[2])
+    v = int(args[0])
+    keys_callback(path, [k,v])
 
 def init (etc_object) :
     global osc_server, osc_target, etc
@@ -164,7 +221,25 @@ def init (etc_object) :
         osc_server = liblo.Server(4000)
     except liblo.ServerError, err:
         print str(err)
+    
+    # added methods for TouchOsc template as it cannot send two arguments
+    osc_server.add_method("/knobs/1", 'f', knob1_callback)
+    osc_server.add_method("/knobs/2", 'f', knob2_callback)
+    osc_server.add_method("/knobs/3", 'f', knob3_callback)
+    osc_server.add_method("/knobs/4", 'f', knob4_callback)
+    osc_server.add_method("/knobs/5", 'f', knob5_callback)
+    osc_server.add_method("/key/1", 'f', skey_callback)
+    osc_server.add_method("/key/3", 'f', skey_callback)
+    osc_server.add_method("/key/4", 'f', skey_callback)
+    osc_server.add_method("/key/5", 'f', skey_callback)
+    osc_server.add_method("/key/6", 'f', skey_callback)
+    osc_server.add_method("/key/7", 'f', skey_callback)
+    osc_server.add_method("/key/8", 'f', skey_callback)
+    osc_server.add_method("/key/9", 'f', skey_callback)
+    osc_server.add_method("/key/10", 'f', skey_callback)
+    osc_server.add_method("/key/11", 'f', skey_callback)
 
+    # original osc methods
     osc_server.add_method("/knobs", 'iiiiii', knobs_callback)
     osc_server.add_method("/key", 'ii', keys_callback)
     osc_server.add_method("/mblob", 'b', mblob_callback)
@@ -180,6 +255,8 @@ def init (etc_object) :
     osc_server.add_method("/trig", 'i', trig_callback)
     osc_server.add_method("/atrigen", 'i', audio_trig_enable_callback)
     osc_server.add_method("/linkpresent", 'i', link_present_callback)
+    osc_server.add_method("/midi_ch", 'i', midi_ch_callback)
+    osc_server.add_method("/trigger_source", 'i', trigger_source_callback)
     osc_server.add_method("/sline", None, shift_line_callback)
     osc_server.add_method(None, None, fallback)
 
@@ -191,3 +268,9 @@ def recv() :
 def send(addr, args) :
     global osc_target
     liblo.send(osc_target, addr, args) 
+
+def send_params_pd():
+    global etc
+    send("/trigger_source", etc.trigger_source)
+    send("/midi_ch", etc.midi_ch)
+    etc.params_sent_pd = True

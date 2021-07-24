@@ -22,6 +22,8 @@ sudo apt-get install --no-install-recommends -y puredata
 # Node packages
 cd web/node
 npm install
+npm install websocket
+npm install tail
 
 cd ~/EYESY_OS
 # Move service files into place and make sure perms are set correctly.

@@ -23,6 +23,7 @@ sudo systemctl enable eyesy-pd.service
 sudo systemctl enable eyesy-python.service  
 sudo systemctl enable splashscreen.service  
 sudo systemctl enable ttymidi.service  
+sudo systemctl start cherrypy.service  
 
 # networking started by eyesy-pd
 #systemctl disable dhcpcd.service
