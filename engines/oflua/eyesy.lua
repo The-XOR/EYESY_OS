@@ -1,7 +1,7 @@
 -- filepath helpers
 
-basedir = "/home/pi/Eyesy/presets/Modes/oFLua"
-appdir = "/home/pi/Eyesy/engines/oflua"
+basedir = "/sdcard/Modes/oFLua"
+appdir = "/home/music/EYESY_OS/engines/oflua"
 
 
 -- inputs

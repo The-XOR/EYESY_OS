@@ -50,3 +50,5 @@ sudo ./install_dependencies.sh
 sudo ./install_codecs.sh
 sudo rm install_dependencies.sh
 sudo rm install_codecs.sh
+
+sudo apt-get install -y xserver-xorg-video-fbturbo

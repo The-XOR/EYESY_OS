@@ -12,8 +12,8 @@
 void ofApp::setup() {
 
 	//MODES and GRABS paths
-	grabsPath = "/home/pi/Eyesy/presets/Grabs/";
-	modesPath = "/home/pi/Eyesy/presets/Modes/oFLua"; 
+	grabsPath = "/sdcard/Grabs/";
+	modesPath = "/sdcard/Modes/oFLua"; 
 
 	// Workaround for "other" sized screens/displays
 	ofSetWindowShape(ofGetWidth(), ofGetHeight());

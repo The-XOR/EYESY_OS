@@ -238,6 +238,7 @@ def init (etc_object) :
     osc_server.add_method("/key/9", 'f', skey_callback)
     osc_server.add_method("/key/10", 'f', skey_callback)
     osc_server.add_method("/key/11", 'f', skey_callback)
+    osc_server.add_method("/shift", 'i', shift_callback)
 
     # original osc methods
     osc_server.add_method("/knobs", 'iiiiii', knobs_callback)
