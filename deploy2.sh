@@ -6,10 +6,9 @@ sudo chown -R music:music /sdcard
 cp --remove-destination -r ./config/presets/* /sdcard
 sudo cp --remove-destination /etc/wpa_supplicant/wpa_supplicant.conf /sdcard/System/wpa_supplicant.conf
 
-# ------------------ todo: controllare se servono ancora
-#pushd /usr/lib/arm-linux-gnueabihf
-#sudo cp librtaudio.so librtaudio.so.5
-#popd
+pushd /usr/lib/arm-linux-gnueabihf
+sudo cp librtaudio.so librtaudio.so.5
+popd
 
 #sudo systemctl enable eyesy-web.service
 #sudo systemctl enable eyesy-web-socket.service
@@ -31,3 +30,8 @@ sudo systemctl start cherrypy.service
 sudo systemctl disable createap.service  
 
 sudo systemctl daemon-reload
+
+librtaudio.so.5
+libcurl.so.4
+libssl.so.1.0.2
+libcrypto.so.1.0.2
