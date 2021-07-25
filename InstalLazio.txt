@@ -78,6 +78,13 @@ reboot
 startx
 Avviare puredata
 
+
+Per ricompilare openFramework,
+cd ~/openFramework/linux/scripts
+./compileOF.sh
+./compilePG.sh
+
+
 ### Control:
 
 **Control via TouchOSC:**
