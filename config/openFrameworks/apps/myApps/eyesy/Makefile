@@ -16,7 +16,6 @@ include $(OF_SHARED_MAKEFILES_PATH)/compile.project.mk
 
 # include the global configuration file
 include $(OF_SHARED_MAKEFILES_PATH)/config.shared.mk
-include $(OF_SHARED_MAKEFILES_PATH)/compile.core.mk
 
 
 

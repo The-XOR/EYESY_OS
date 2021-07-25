@@ -55,6 +55,10 @@ A questo punto, con partition manager RIPARTIZIONARE la sdcard creando una terza
 Per fare ciò, la sticca usba NOn deve essere montata (tasto destro/Unmount DA DENTRO PARTITION MANAGER)
 
 
+
+
+
+
 git clone https://github.com/The-XOR/EYESY_OS.git --depth=1
 cd EYESY_OS
 

@@ -37,8 +37,8 @@
 #
 #   Note: Leave a leading space when adding list items with the += operator
 ################################################################################
- PROJECT_EXTERNAL_SOURCE_PATHS += /home/music/openFrameworks/addons/ofxLua/libs/lua
-PROJECT_EXTERNAL_SOURCE_PATHS += /usr/include/lua5.3/
+PROJECT_EXTERNAL_SOURCE_PATHS += /home/music/luajit/
+
 ################################################################################
 # PROJECT EXCLUSIONS
 #   These makefiles assume that all folders in your current project directory 

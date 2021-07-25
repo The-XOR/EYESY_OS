@@ -13,7 +13,7 @@ curl -sL https://deb.nodesource.com/setup_14.x | sed -e 's/apt-get /apt-get --al
 
 # Debian packages
 sudo apt install -y python-pygame python-liblo python-alsaaudio python-pip libffi-dev nodejs
-sudo apt install -y libboost-filesystem1.62.0 liblua5.3-dev
+sudo apt install -y libboost-filesystem1.62.0 liblua5.3-dev swig
 
 # Python packages
 sudo pip install psutil cherrypy numpy JACK-Client
@@ -40,6 +40,20 @@ sudo rm -fr tmp
 mv ./config/openFrameworks /home/music/
 sudo mv .config/libs/* /usr/lib/arm-linux-gnueabihf/
 sync
+
+#Installazione luajit:
+cd /home/music
+git clone https://luajit.org/git/luajit.git
+cd luajit
+make
+export PKG_CONFIG_PATH=/home/music/luajit/etc
+
+cd /home/music/openframeworks/addons/
+git clone git://github.com/danomatika/ofxLua.git
+cd ofxLua
+git submodule init
+git submodule update
+
 
 sudo cp --remove-destination ./config/cmdline.txt /boot/
 sudo cp --remove-destination ./config/config.txt /boot/
