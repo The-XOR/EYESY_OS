@@ -277,7 +277,8 @@ endif
 #   Note: Leave a leading space when adding list items with the += operator
 ################################################################################
 
-PLATFORM_HEADER_SEARCH_PATHS =
+PLATFORM_HEADER_SEARCH_PATHS = /home/music/luajit/etc
+#PLATFORM_HEADER_SEARCH_PATHS += /home/music/luajit/src/
 
 ################################################################################
 # PLATFORM LIBRARIES
