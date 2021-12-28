@@ -414,8 +414,7 @@ def render_overlay_480(screen) :
     #text_rect = text.get_rect()
     #text_rect.x = 1180
     #text_rect.centery = 680
-    #screen.blit(text, text_rect)
-    
+    #screen.blit(text, text_rect)  
     # grabs
     pygame.draw.rect(screen, etc.BLACK, (486, 20, 155, 435))
     text = font.render(" Recent Grabs", True, etc.WHITE, etc.BLACK)

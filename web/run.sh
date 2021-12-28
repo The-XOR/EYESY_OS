@@ -9,4 +9,3 @@ cd ..
 # redirect 80 -> 8080
 sudo iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-ports 8080
 /usr/local/bin/cherryd -i cpapp -c prod.conf 
-
