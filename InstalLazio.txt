@@ -79,17 +79,23 @@ reboot
 
 ./deploy2.sh
 
+
 startx
 Avviare puredata
 
+installare openframework:
+seguire le istruzioni su
+https://openframeworks.cc/setup/raspberrypi/raspberry-pi-getting-started/
 
-Per ricompilare openFramework,
-cd ~/openFramework/linux/scripts
-./compileOF.sh
-./compilePG.sh
+installare lua addon:
+https://github.com/danomatika/ofxLua
+
 
 
 ### Control:
+
++++++ LEMUR!
+Implementanta una splendida patch per Lemur, molto piu completa di quella fatta con TouchOSC
 
 **Control via TouchOSC:**
 - Download and install the TouchOSC app for your iOS or Android device (it is not free, I've been looking for free/open-source alternatives, please let me know if you know one; nevertheless, this app is well developed and it's also nice to suppot this kind of effort I believe)

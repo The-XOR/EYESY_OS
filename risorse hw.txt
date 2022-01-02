@@ -1,0 +1,11 @@
+ot GPIO.input(13):  --> shutdown button
+engines/oflua/eyesy/src/eyesy.lua
+
+
+eyesy.pd contiene le letture hardware di tasti  e potenziometri.
+si basa sulla libreria http://wiringpi.com/
+
+vedi anche http://dernulleffekt.de/doku.php?id=puredata:gpio
+
+i potenziometri *dovrebbero* essere da 10K (https://www.adafruit.com/product/562)
+e l'ADC è un MCP3008 (https://www.adafruit.com/product/856)

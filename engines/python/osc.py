@@ -189,7 +189,7 @@ def keys_callback(path, args) :
     if (k == 5 and v > 0) : etc.next_mode()
     if (k == 4 and v > 0) : etc.prev_mode()
     if (k == 10) : etc.update_trig_button(v)
-    if (k == 11) : os.system("sudo poweroff")
+    if (k == 11) : poweroff()
     if (k == 9 and v > 0) : etc.screengrab_flag = True
     if (k == 6 and v > 0) : etc.prev_scene()
     if (k == 8) : etc.save_or_delete_scene(v)
@@ -200,6 +200,15 @@ def keys_callback(path, args) :
     if (k == 3 and v > 0) :
         if (etc.auto_clear) : etc.auto_clear = False
         else : etc.auto_clear = True
+    if (k == 2) : shift_callback(path, v)
+
+def poweroff(path) :
+    os.system("systemctl stop cherrypy.service")
+    os.system("systemctl stop eyesy-pd.service")
+    os.system("systemctl stop eyesy-python.service") 
+    os.system("systemctl stop splashscreen.service")
+    os.system("systemctl stop ttymidi.service") 
+    os.system("shutdown -h now")
 
 def skey_callback(path, args) :
     splitpath = path.split("/")
@@ -219,8 +228,8 @@ def init (etc_object) :
 
     try:
         osc_server = liblo.Server(4000)
-    except liblo.ServerError, err:
-        print str(err)
+    except liblo.ServerError as err:
+        print (err)
     
     # added methods for TouchOsc template as it cannot send two arguments
     osc_server.add_method("/knobs/1", 'f', knob1_callback)
@@ -229,6 +238,7 @@ def init (etc_object) :
     osc_server.add_method("/knobs/4", 'f', knob4_callback)
     osc_server.add_method("/knobs/5", 'f', knob5_callback)
     osc_server.add_method("/key/1", 'f', skey_callback)
+    osc_server.add_method("/key/2", 'f', skey_callback)
     osc_server.add_method("/key/3", 'f', skey_callback)
     osc_server.add_method("/key/4", 'f', skey_callback)
     osc_server.add_method("/key/5", 'f', skey_callback)
@@ -238,7 +248,6 @@ def init (etc_object) :
     osc_server.add_method("/key/9", 'f', skey_callback)
     osc_server.add_method("/key/10", 'f', skey_callback)
     osc_server.add_method("/key/11", 'f', skey_callback)
-    osc_server.add_method("/shift", 'i', shift_callback)
 
     # original osc methods
     osc_server.add_method("/knobs", 'iiiiii', knobs_callback)
@@ -247,7 +256,6 @@ def init (etc_object) :
     osc_server.add_method("/midicc", 'ii', midicc_callback)
     osc_server.add_method("/midinote", 'ii', midinote_callback)
     osc_server.add_method("/reload", 'i', reload_callback)
-    # osc_server.add_method("/new", 's', reload_callback)
     osc_server.add_method("/set", 's', set_callback)
     osc_server.add_method("/new", 's', new_callback)
     osc_server.add_method("/fs", 'i', fs_callback)

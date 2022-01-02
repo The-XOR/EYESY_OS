@@ -165,48 +165,56 @@ void ofApp::update() {
 		receiver.getNextMessage(m);
 		//cout << "new message on port " << PORT << m.getAddress() << "\n";
 
-		if(m.getAddress() == "/shift") {	
+		if((m.getAddress() == "/shift") || (m.getAddress() == "/key/2")) 
+		{	
 			//cout << "shift" << "\n";
-			osdShiftSetting = !osdShiftSetting;
-			lua.setBool("osd_shift", osdShiftSetting);
-		}
-		if(m.getAddress() == "/key/1") {	
-			//cout << "osd" << "\n";
-			if (m.getArgAsInt32(0) == 1){
-				osdSetting = !osdSetting;
-                lua.setBool("osd_state", osdSetting);
-				if (osdShiftSetting && osdSetting) {
-					osdShiftSetting = false;
-					lua.setBool("osd_shift", osdShiftSetting);
-				}
+			if(&& m.getArgAsInt32(1) > 0) {
+				osdShiftSetting = !osdShiftSetting;
+				lua.setBool("osd_shift", osdShiftSetting);
 			}
 		}
-		if(m.getAddress() == "/key/3") {	
+
+		if(m.getAddress() == "/key/1" && m.getArgAsInt32(0) > 0) {	
+			//cout << "osd" << "\n";
+			osdSetting = !osdSetting;
+			lua.setBool("osd_state", osdSetting);
+		}
+		if(m.getAddress() == "/key/3" && m.getArgAsInt32(0) > 0) {	
 			//cout << "change persist" << "\n";
 			persistSetting++;
 			persistSetting &= 1;
-			if (persistSetting == 1){
-				lua.setBool("persist", true);
-			}else{
-				lua.setBool("persist", false);
-			}
+			lua.setBool("persist",persistSetting == 1);
 		}
-		if(m.getAddress() == "/key/4") {	 
+		if(m.getAddress() == "/key/4" && m.getArgAsInt32(0) > 0) {	 
 			//cout << "back" << "\n";
 			prevScript();
 		}
-		if(m.getAddress() == "/key/5") {	 
+		if(m.getAddress() == "/key/5" && m.getArgAsInt32(0) > 0) {	 
 			//cout << "fwd" << "\n";
 			nextScript();
 		}
+		if (m.getAddress() == "/key/6" && m.getArgAsInt32(0) > 0) {
+			// placeholder for scene back
+		}
+		if (m.getAddress() == "/key/7" && m.getArgAsInt32(0) > 0) {
+			// placeholder for scene forward
+		}
+		if (m.getAddress() == "/key/8" && m.getArgAsInt32(0) > 0) {
+			// placeholder for scene save
+		}		
+		if (m.getAddress() == "/key/9" && m.getArgAsInt32(0) > 0) {
+			img.grabScreen(0,0,ofGetWidth(),ofGetHeight());
+			string fileName = "snapshot_"+ofToString(10000+snapCounter)+".png";
+			//cout << "saving " + fileName + "...";
+			img.save(grabsPath + fileName);
+			//cout << "saved\n";
+			snapCounter++;
+		}		
 		if(m.getAddress() == "/key/10") {	 
 			//cout << "trig" << "\n";
-			if (m.getArgAsInt32(0) == 1){
-				lua.setBool("trig", true);
-			}else{
-				lua.setBool("trig", false);
-			}
+			lua.setBool("trig", m.getArgAsInt32(0) > 0);
 		}
+
 		if(m.getAddress() == "/key") {	 
 			if (m.getArgAsInt32(0) == 1 && m.getArgAsInt32(1) > 0) {
 				// placeholder for OSD
@@ -252,19 +260,17 @@ void ofApp::update() {
 				//cout << "change persist" << "\n";
 				persistSetting++;
 				persistSetting &= 1;
+			l	ua.setBool("persist",persistSetting == 1);
 			}
-			if (m.getArgAsInt32(0) == 10 && m.getArgAsInt32(1) > 0) {
+			if (m.getArgAsInt32(0) == 10) {
 				//cout << "trig" << "\n";
-				lua.setBool("trig", true);
-			} else if (m.getArgAsInt32(0) == 10 && m.getArgAsInt32(1) == 0) {
-				lua.setBool("trig", false);
-			}
+				lua.setBool("trig", m.getArgAsInt32(1) > 0);
+			} 
 
 		}
 		// added for TouchOSC compatibility
 		if(m.getAddress() == "/knobs/1") {
 			lua.setNumber("knob1", (float)m.getArgAsInt32(0) / 1023);
-			//printf("%lu knob1.\n", m.getArgAsInt32(0));
 		}
 		if(m.getAddress() == "/knobs/2") {
 			lua.setNumber("knob2", (float)m.getArgAsInt32(0) / 1023);
@@ -292,7 +298,7 @@ void ofApp::update() {
 		}
 		if(m.getAddress() == "/ascale") {
 			//cout << "audio scale\n";
-			lua.setNumber("ascale", (float)m.getArgAsInt32(0) / 1023); // float 0 to 2 from osc
+			lua.setNumber("ascale", (float)m.getArgAsInt32(0)); // float 0 to 2 from osc
 		}
 		if(m.getAddress() == "/trigger_source") {
 			//cout << "trigger source\n";

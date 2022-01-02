@@ -16,7 +16,7 @@ while True:
             os.system("systemctl stop cherrypy.service")
             os.system("systemctl stop eyesy-pd.service")
             os.system("systemctl stop eyesy-python.service") 
-            os.system("systemctl stop splashscreen.servic")
+            os.system("systemctl stop splashscreen.service")
             os.system("systemctl stop ttymidi.service") 
             os.system("shutdown -h now")
         time.sleep(1)
