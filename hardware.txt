@@ -1,0 +1,3 @@
+Power off button:
+
+tra pin 39 (GND) e pin 33 (GPIO13)
