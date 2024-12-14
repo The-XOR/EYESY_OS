@@ -1,0 +1,7 @@
+name = "S - Constellation Aquarius" 
+knob1 = "offset"
+knob2 = "number of images"
+knob3 = "scale"
+knob4 = "line width"
+knob5 = "BG Color"
+released = "March 4th, 2024"

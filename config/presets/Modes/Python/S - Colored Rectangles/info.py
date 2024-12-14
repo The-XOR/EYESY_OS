@@ -1,0 +1,7 @@
+name = "S - Colored Rectangles" 
+knob1 = "X shift"
+knob2 = "Y shift"
+knob3 = "X scale"
+knob4 = "Y scale"
+knob5 = "BG Color"
+released = "January 2nd, 2024"

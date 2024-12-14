@@ -1,0 +1,7 @@
+name = "S - Random Lines" 
+knob1 = "X offset"
+knob2 = "Y offset"
+knob3 = "line width"
+knob4 = "Color"
+knob5 = "BG Color"
+released = "December 20th, 2023"

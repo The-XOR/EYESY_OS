@@ -1,0 +1,7 @@
+name = "S - MBTA NW" 
+knob1 = "Red attributes"
+knob2 = "Blue / Orange attributes"
+knob3 = "Silver attributes"
+knob4 = "Green attributes"
+knob5 = "BG Color"
+released = "April 30th, 2024"

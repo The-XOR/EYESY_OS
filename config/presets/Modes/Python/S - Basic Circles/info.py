@@ -1,0 +1,8 @@
+name = "S - Basic Circles" 
+description = "Basic Patch based upon Critter and Guitari EYESY manual section 5.1"
+knob1 = "Relative position of small circle"
+knob2 = "X position of big circle"
+knob3 = "Y position of big circle"
+knob4 = "Color"
+knob5 = "BG Color & color of small circle"
+released = "December 18th, 2023"

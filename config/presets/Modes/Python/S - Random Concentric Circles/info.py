@@ -1,0 +1,7 @@
+name = "S - Random Concentric Circles" 
+knob1 = "X scale"
+knob2 = "Y scale"
+knob3 = "size scale"
+knob4 = "line width"
+knob5 = "BG Color"
+released = "January 2nd, 2024"

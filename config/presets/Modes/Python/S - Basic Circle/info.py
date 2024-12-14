@@ -1,0 +1,8 @@
+name = "S - Basic Circle" 
+description = "Basic Patch based upon Critter and Guitari EYESY manual section 5.1"
+knob1 = "N/A"
+knob2 = "N/A"
+knob3 = "N/A"
+knob4 = "Color"
+knob5 = "BG Color"
+released = "November 28th, 2023"

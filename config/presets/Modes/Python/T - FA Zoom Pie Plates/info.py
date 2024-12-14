@@ -1,0 +1,7 @@
+name = "FA_Zoom_Pie_Plates" 
+description = "four zoomable recursive and rotating images"
+knob1 = "Pie Size"
+knob2 = "Recursion Size"
+knob3 = "Rotation" 
+knob4 = "Colour"
+released = "December 26 2018, by Florian Anwander"

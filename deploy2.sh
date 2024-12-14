@@ -29,6 +29,8 @@ sudo systemctl start cherrypy.service
 #systemctl disable wpa_supplicant.service
 sudo systemctl disable createap.service  
 
+sudo systemctl disable hciuart.service  
+
 sudo systemctl daemon-reload
 
 librtaudio.so.5

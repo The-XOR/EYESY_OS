@@ -1,0 +1,7 @@
+name = "FA_Zoom_Rings" 
+description = "Zoomable recursive and rotating image"
+knob1 = "Zoom Factor"
+knob2 = "Rotation"
+knob3 = "Ball Size" 
+knob4 = "- None -"
+released = "December 26 2018, by Florian Anwander"

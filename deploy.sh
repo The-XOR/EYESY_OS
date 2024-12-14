@@ -13,7 +13,7 @@ curl -sL https://deb.nodesource.com/setup_14.x | sed -e 's/apt-get /apt-get --al
 
 # Debian packages
 sudo apt install -y python-pygame python-liblo python-alsaaudio python-pip libffi-dev nodejs
-sudo apt install -y libboost-filesystem1.62.0 liblua5.3-dev swig
+sudo apt install -y libboost-filesystem1.62.0 liblua5.3-dev swig fbi
 
 # Python packages
 sudo pip install psutil cherrypy numpy JACK-Client
