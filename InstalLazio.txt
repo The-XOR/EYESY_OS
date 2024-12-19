@@ -90,7 +90,9 @@ https://openframeworks.cc/setup/raspberrypi/raspberry-pi-getting-started/
 installare lua addon:
 https://github.com/danomatika/ofxLua
 
-
+Connessione ssh:
+ssh music@eyesy
+la password e' "music"
 
 ### Control:
 
