@@ -32,8 +32,3 @@ sudo systemctl disable createap.service
 sudo systemctl disable hciuart.service  
 
 sudo systemctl daemon-reload
-
-librtaudio.so.5
-libcurl.so.4
-libssl.so.1.0.2
-libcrypto.so.1.0.2

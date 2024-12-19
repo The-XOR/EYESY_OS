@@ -52,7 +52,7 @@ A questo punto, con partition manager RIPARTIZIONARE la sdcard creando una terza
 /boot (part 1)
 /rootfs (part 2)
 / <---- Nuova partizione (part 3), dove verranno memorizzati tutti i preset
-Per fare ciò, la sticca usba NOn deve essere montata (tasto destro/Unmount DA DENTRO PARTITION MANAGER)
+Per fare ciò, la sticca usba NON deve essere montata (tasto destro/Unmount DA DENTRO PARTITION MANAGER)
 
 
 
@@ -86,6 +86,11 @@ Avviare puredata
 installare openframework:
 seguire le istruzioni su
 https://openframeworks.cc/setup/raspberrypi/raspberry-pi-getting-started/
+1. scaricare da https://github.com/openframeworks/openFrameworks/releases 
+   l'ultima versione disponibile per armv6l
+2. cd /home/pi/openFrameworks/scripts/linux/debian
+3. sudo ./install_dependencies.sh
+4. make Release -C /home/music/openFrameworks/libs/openFrameworksCompiled/project
 
 installare lua addon:
 https://github.com/danomatika/ofxLua
