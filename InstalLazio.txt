@@ -64,7 +64,7 @@ cd EYESY_OS
 
 
 Note - EYESY is looking for your sound card to be the "default" device.
-Inserire nello slotto usbo la sound card che si intende utilizzare (per es la cara vecchia barbonger uca222) aplay -l Si ottiene un output tipo questo:
+Inserire nello slotto usbo la sound card che si intende utilizzare (per es la cara vecchia barbonger uca222) aplay -l si ottiene un output tipo questo:
 
 **** List of PLAYBACK Hardware Devices **** card 1: CODEC [USB Audio CODEC], device 0: USB Audio [USB Audio] Subdevices: 1/1 Subdevice #0: subdevice #0
 
