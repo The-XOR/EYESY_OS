@@ -1,8 +1,8 @@
 #!/bin/bash
 set -ex
 
-# MODIFICARE QUESTO FILE e mettere il numero di scheda audio voluta
-sudo cp --remove-destination ./config/asound.conf /etc/asound.conf
+# Blacklist scheda audio interna del raspberry
+echo "blacklist snd_bcm2835" | sudo tee -a /etc/modprobe.d/alsa-blacklist.conf
 
 # Add music user to tty
 sudo usermod -a -G tty music
@@ -15,7 +15,7 @@ sudo touch /boot/ssh
 
 # Debian packages
 sudo apt install -y python-pygame python-liblo python-alsaaudio python-pip libffi-dev nodejs
-sudo apt install -y libboost-filesystem1.62.0 liblua5.3-dev swig fbi
+sudo apt install -y libboost-filesystem1.62.0 liblua5.3-dev swig fbi raspi-config
 
 # Python packages
 sudo pip install psutil cherrypy numpy JACK-Client
