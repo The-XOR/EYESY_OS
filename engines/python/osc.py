@@ -141,26 +141,35 @@ def knob1_callback(path, args):
     global etc
     k1 = args[0]
     #print "received message: k1 " + str(args)
+    send("/knob1", float(k1))
     etc.knob_hardware[0] = float(k1) / 1023
+
 def knob2_callback(path, args):
     global etc
     k2 = args[0]
     #print "received message: k2 " + str(args)
+    send("/knob2", float(k2))
     etc.knob_hardware[1] = k2 / 1023
+
 def knob3_callback(path, args):
     global etc
     k3 = args[0]
     #print "received message: k3 " + str(args)
+    send("/knob3", float(k3))
     etc.knob_hardware[2] = k3 / 1023
+
 def knob4_callback(path, args):
     global etc
     k4 = args[0]
     #print "received message: k4 " + str(args)
+    #unused send("/knob4", float(k4))
     etc.knob_hardware[3] = k4 / 1023
+
 def knob5_callback(path, args):
     global etc
     k5 = args[0]
     #print "received message: k5 " + str(args)
+    #unused send("/knob5", float(k5))
     etc.knob_hardware[4] = k5 / 1023
 
 def shift_callback(path, args) :

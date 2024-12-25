@@ -4,7 +4,7 @@ cd /home/music/Eyesy
 
 # make sure the log file exists
 touch /tmp/video.log
-sudo chown pi:pi /tmp/video.log
+sudo chown music:music /tmp/video.log
 #amixer cset numid=11 on
 
 systemctl start eyesy-python.service
