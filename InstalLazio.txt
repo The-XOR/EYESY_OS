@@ -63,7 +63,6 @@ git clone https://github.com/The-XOR/EYESY_OS.git --depth=1
 cd EYESY_OS
 
 
-**** obsoleto ****
 	Note - EYESY is looking for your sound card to be the "default" device.
 	Inserire nello slotto usbo la sound card che si intende utilizzare (per es la cara vecchia barbonger uca222) aplay -l si ottiene un output tipo questo:
 
@@ -73,9 +72,6 @@ cd EYESY_OS
 
 	cd ~/EYESY_OS/config 
 	nano asound.conf <----- inserire qui il numero di card annotato in precedenza (per default, 1)
-**** obsoleto ****
-
-Il novello metodo l'e' quello di mettere in blacklist la scheda audio interna del raspberry, in modo che la scheda usb venga automaticamente riconosciuta come default
 
    
 ./deploy.sh
@@ -83,6 +79,8 @@ reboot
 
 ./deploy2.sh
 
+
+raspi-config: abilitare autologin con desktop (startx deve essere avviato)
 
 startx
 Avviare puredata

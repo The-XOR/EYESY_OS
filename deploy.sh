@@ -1,6 +1,9 @@
 #!/bin/bash
 set -ex
 
+# MODIFICARE QUESTO FILE e mettere il numero di scheda audio voluta
+sudo cp --remove-destination ./config/asound.conf /etc/asound.conf
+
 # Blacklist scheda audio interna del raspberry
 echo "blacklist snd_bcm2835" | sudo tee -a /etc/modprobe.d/alsa-blacklist.conf
 
@@ -55,7 +58,6 @@ git clone git://github.com/danomatika/ofxLua.git
 cd ofxLua
 git submodule init
 git submodule update
-
 
 sudo cp --remove-destination ./config/cmdline.txt /boot/
 sudo cp --remove-destination ./config/config.txt /boot/
