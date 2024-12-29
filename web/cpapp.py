@@ -149,6 +149,11 @@ class Root():
         return 'powered off'
     power_off.exposed = True
 
+    def reboot(self, engine):
+        os.system("sudo reboot")
+        return 'rebooting'
+    reboot.exposed = True
+
     def stop_video_engine(self, engine):
         # stop them both
         os.system("sudo systemctl stop eyesy-oflua.service")

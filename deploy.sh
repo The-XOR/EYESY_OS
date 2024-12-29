@@ -2,7 +2,9 @@
 set -ex
 
 # MODIFICARE QUESTO FILE e mettere il numero di scheda audio voluta
-sudo cp --remove-destination ./config/asound.conf /etc/asound.conf
+#sudo cp --remove-destination ./config/asound.conf /etc/asound.conf
+aplay -l | grep "USB Audio"|awk  '{print "default.pcm.card " substr($2,1,1) "\ndefault.ctl.card " substr($2,1,1)}' | sudo tee /etc/asound.conf
+
 
 # Blacklist scheda audio interna del raspberry
 echo "blacklist snd_bcm2835" | sudo tee -a /etc/modprobe.d/alsa-blacklist.conf
