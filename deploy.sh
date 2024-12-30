@@ -40,6 +40,7 @@ cp -r ./config/rootfs tmp/
 sudo chown -R root:root tmp/rootfs
 sudo chown -R music:music tmp/rootfs/home/music
 sudo cp -fr --preserve=mode,ownership tmp/rootfs/* /
+
 sudo cat ./config/cat2fstab>>./tmp/fstab
 cp /etc/fstab ./tmp
 sudo cp --remove-destination ./tmp/fstab /etc/fstab
@@ -71,4 +72,4 @@ sudo ./install_codecs.sh
 sudo rm install_dependencies.sh
 sudo rm install_codecs.sh
 
-sudo apt-get install -y xserver-xorg-video-fbturbo
+sudo apt-get install -y xserver-xorg-video-fbturbo xterm 
