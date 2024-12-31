@@ -21,6 +21,10 @@ def fs_callback(path, args):
     if (v[0] > 0):
         etc.foot_pressed()
 
+def midipgm_callback(path, args):
+    global etc
+    etc.midi_pgm = args[0]
+
 def midicc_callback(path, args):
     global etc, cc_last
     val, num = args
@@ -46,7 +50,7 @@ def trig_callback(path, args) :
 def audio_scale_callback(path, args):
     global etc
     val = args[0]
-    etc.audio_scale = float(val)
+    etc.audio_scale = val
 
 def audio_trig_enable_callback(path, args):
     global etc
@@ -59,10 +63,6 @@ def link_present_callback(path, args):
     val = args[0]
     if val == 1 : etc.link_connected = True
     else : etc.link_connected = False
-    # using this a sign of life of the pd patch:
-    if not(etc.params_sent_pd):
-        etc.recall_shift_params()
-        send_params_pd()
 
 def mblob_callback(path, args):
     global etc, cc_last, pgm_last, notes_last, clk_last
@@ -136,44 +136,51 @@ def knobs_callback(path, args):
     etc.knob_hardware[3] = float(k4) / 1023
     etc.knob_hardware[4] = float(k5) / 1023
 
+# for TouchOSC control
 def knob1_callback(path, args):
     global etc
     k1 = args[0]
     #print "received message: k1 " + str(args)
+    send("/knob1", float(k1))
     etc.knob_hardware[0] = float(k1) / 1023
+
 def knob2_callback(path, args):
     global etc
     k2 = args[0]
     #print "received message: k2 " + str(args)
+    send("/knob2", float(k2))
     etc.knob_hardware[1] = k2 / 1023
+
 def knob3_callback(path, args):
     global etc
     k3 = args[0]
     #print "received message: k3 " + str(args)
+    send("/knob3", float(k3))
     etc.knob_hardware[2] = k3 / 1023
+
 def knob4_callback(path, args):
     global etc
     k4 = args[0]
     #print "received message: k4 " + str(args)
+    #unused send("/knob4", float(k4))
     etc.knob_hardware[3] = k4 / 1023
+
 def knob5_callback(path, args):
     global etc
     k5 = args[0]
     #print "received message: k5 " + str(args)
+    #unused send("/knob5", float(k5))
     etc.knob_hardware[4] = k5 / 1023
 
 def shift_callback(path, args) :
     global etc
     stat = int(args[0])
-    print "shift: " + str(stat)
     if stat == 1 : 
         etc.shift = True
         etc.set_osd(False)
         send("/shift", stat)
     else : 
         etc.shift = False
-        etc.save_shift_params()
-    print "shift: " + str(etc.shift)
 
 def shift_line_callback(path, args) :
     global etc
@@ -210,7 +217,8 @@ def poweroff(path) :
     os.system("systemctl stop ttymidi.service") 
     os.system("shutdown -h now")
 
-def skey_callback(path, args) :
+# for TouchOSC control
+def singlekey_callback(path, args) :
     splitpath = path.split("/")
     k = int(splitpath[2])
     v = int(args[0])
@@ -237,23 +245,24 @@ def init (etc_object) :
     osc_server.add_method("/knobs/3", 'f', knob3_callback)
     osc_server.add_method("/knobs/4", 'f', knob4_callback)
     osc_server.add_method("/knobs/5", 'f', knob5_callback)
-    osc_server.add_method("/key/1", 'f', skey_callback)
-    osc_server.add_method("/key/2", 'f', skey_callback)
-    osc_server.add_method("/key/3", 'f', skey_callback)
-    osc_server.add_method("/key/4", 'f', skey_callback)
-    osc_server.add_method("/key/5", 'f', skey_callback)
-    osc_server.add_method("/key/6", 'f', skey_callback)
-    osc_server.add_method("/key/7", 'f', skey_callback)
-    osc_server.add_method("/key/8", 'f', skey_callback)
-    osc_server.add_method("/key/9", 'f', skey_callback)
-    osc_server.add_method("/key/10", 'f', skey_callback)
-    osc_server.add_method("/key/11", 'f', skey_callback)
+    osc_server.add_method("/key/1", 'f', singlekey_callback)
+    osc_server.add_method("/key/2", 'f', singlekey_callback)
+    osc_server.add_method("/key/3", 'f', singlekey_callback)
+    osc_server.add_method("/key/4", 'f', singlekey_callback)
+    osc_server.add_method("/key/5", 'f', singlekey_callback)
+    osc_server.add_method("/key/6", 'f', singlekey_callback)
+    osc_server.add_method("/key/7", 'f', singlekey_callback)
+    osc_server.add_method("/key/8", 'f', singlekey_callback)
+    osc_server.add_method("/key/9", 'f', singlekey_callback)
+    osc_server.add_method("/key/10", 'f', singlekey_callback)
+    osc_server.add_method("/key/11", 'f', singlekey_callback)
 
     # original osc methods
     osc_server.add_method("/knobs", 'iiiiii', knobs_callback)
     osc_server.add_method("/key", 'ii', keys_callback)
     osc_server.add_method("/mblob", 'b', mblob_callback)
     osc_server.add_method("/midicc", 'ii', midicc_callback)
+    osc_server.add_method("/midipgm", 'i', midipgm_callback)
     osc_server.add_method("/midinote", 'ii', midinote_callback)
     osc_server.add_method("/reload", 'i', reload_callback)
     osc_server.add_method("/set", 's', set_callback)

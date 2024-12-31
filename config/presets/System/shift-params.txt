@@ -1,3 +1,0 @@
-inputGain 285;
-trigSource 6;
-midiCh 10;

@@ -502,6 +502,13 @@ $(function () {
         });
     });
 
+    $("#reboot").click(function(){
+        $.get(appBaseURL + '/reboot/?engine=all', function(data) {
+            console.log(data);
+        });
+    });
+
+
     $("#save").click(function() {
 	$.post(appBaseURL + "/save", { fpath: currentEditorFile, contents: editor.getValue() })
 	.done(function(data) {

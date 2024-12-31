@@ -68,3 +68,5 @@ gpu_mem=256
 boot_delay=0
 #dtoverlay=pi3-disable-bt
 
+[all]
+dtoverlay=vc4-kms-v3d,audio=off

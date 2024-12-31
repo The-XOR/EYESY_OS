@@ -52,7 +52,7 @@ A questo punto, con partition manager RIPARTIZIONARE la sdcard creando una terza
 /boot (part 1)
 /rootfs (part 2)
 / <---- Nuova partizione (part 3), dove verranno memorizzati tutti i preset
-Per fare ciò, la sticca usba NOn deve essere montata (tasto destro/Unmount DA DENTRO PARTITION MANAGER)
+Per fare ciò, la sticca usba NON deve essere montata (tasto destro/Unmount DA DENTRO PARTITION MANAGER)
 
 
 
@@ -63,15 +63,15 @@ git clone https://github.com/The-XOR/EYESY_OS.git --depth=1
 cd EYESY_OS
 
 
-Note - EYESY is looking for your sound card to be the "default" device.
-Inserire nello slotto usbo la sound card che si intende utilizzare (per es la cara vecchia barbonger uca222) aplay -l Si ottiene un output tipo questo:
+	Note - EYESY is looking for your sound card to be the "default" device.
+	Inserire nello slotto usbo la sound card che si intende utilizzare (per es la cara vecchia barbonger uca222) aplay -l si ottiene un output tipo questo:
 
-**** List of PLAYBACK Hardware Devices **** card 1: CODEC [USB Audio CODEC], device 0: USB Audio [USB Audio] Subdevices: 1/1 Subdevice #0: subdevice #0
+	**** List of PLAYBACK Hardware Devices **** card 1: CODEC [USB Audio CODEC], device 0: USB Audio [USB Audio] Subdevices: 1/1 Subdevice #0: subdevice #0
 
-annotarsi il n. di card della scheda che si vuole utilizzare
+	annotarsi il n. di card della scheda che si vuole utilizzare
 
-cd ~/EYESY_OS/config 
-nano asound.conf <----- inserire qui il numero di card annotato in precedenza (per default, 1)
+	cd ~/EYESY_OS/config 
+	nano asound.conf <----- inserire qui il numero di card annotato in precedenza (per default, 1)
 
    
 ./deploy.sh
@@ -80,15 +80,29 @@ reboot
 ./deploy2.sh
 
 
+raspi-config: abilitare autologin con desktop (startx deve essere avviato)
+
 startx
 Avviare puredata
 
-installare openframework:
-seguire le istruzioni su
-https://openframeworks.cc/setup/raspberrypi/raspberry-pi-getting-started/
+*** obsoleto
+  installare openframework:
+  seguire le istruzioni su
+  https://openframeworks.cc/setup/raspberrypi/raspberry-pi-getting-started/
+  1. scaricare da https://github.com/openframeworks/openFrameworks/releases 
+    l'ultima versione disponibile per armv6l
+  2. cd /home/music/openFrameworks/scripts/linux/debian
+  3. sudo ./install_dependencies.sh
+  4. sudo ./install_codecs.sh
+  5. cd OF/scripts/linux
+    ./compileOF.sh
+  6. make Release -C /home/music/openFrameworks/libs/openFrameworksCompiled/project
 
-installare lua addon:
-https://github.com/danomatika/ofxLua
+  installare lua addon:
+  https://github.com/danomatika/ofxLua
+*** obsoleto
+installare openFrameworks con
+./install_lua.sh
 
 Connessione ssh:
 ssh music@eyesy

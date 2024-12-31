@@ -13,10 +13,10 @@ sync
 mkdir /sdcard/System
 
 # configure systemd stuff
-systemctl enable eyesy-oflua.service  
+systemctl disable eyesy-oflua.service  
 systemctl enable cherrypy.service  
 systemctl enable eyesy-pd.service  
-systemctl disable eyesy-python.service  
+systemctl enable eyesy-python.service  
 systemctl enable splashscreen.service  
 systemctl enable ttymidi.service  
 
