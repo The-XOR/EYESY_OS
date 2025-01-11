@@ -49,12 +49,8 @@ mv ./config/openFrameworks /home/music/
 sudo mv .config/libs/* /usr/lib/arm-linux-gnueabihf/
 sync
 
-#Installazione luajit:
-cd /home/music
-git clone https://luajit.org/git/luajit.git
-cd luajit
-make
-export PKG_CONFIG_PATH=/home/music/luajit/etc
+#Installazione luajit (preso dal readme di danomatica/oflua):
+sudo apt install luajit-5.1
 
 cd /home/music/openframeworks/addons/
 git clone git://github.com/danomatika/ofxLua.git

@@ -10,12 +10,17 @@ sudo ./install_dependencies.sh
 sudo ./install_codecs.sh
 cd ~/openFrameworks/scripts/linux
 ./compileOF.sh
+./compilePG.sh
 make Release -C /home/music/openFrameworks/libs/openFrameworksCompiled/project
+
+# lua addons
 cd ~/openFrameworks/addons/
 git clone https://github.com/danomatika/ofxLua.git --depth=1
 cd ofxLua
 git submodule init
 git submodule update
 
-
+# compilazione eyesy engine
+ln -s /home/music/EYESY_OS/engines/oflua/eyesy /home/music/openFrameworks/apps/myApps/eyesy
+cd ~/openFrameworks/apps/myApps/eyesy
 

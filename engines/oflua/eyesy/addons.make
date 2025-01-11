@@ -1,3 +1,2 @@
-ofxMidi
 ofxOsc
 ofxLua
