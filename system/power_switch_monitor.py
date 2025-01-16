@@ -19,6 +19,7 @@ while True:
             os.system("systemctl stop splashscreen.service")
             os.system("systemctl stop ttymidi.service") 
             os.system("shutdown -h now")
+            break
         time.sleep(1)
 
 

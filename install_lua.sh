@@ -23,4 +23,5 @@ git submodule update
 # compilazione eyesy engine
 ln -s /home/music/EYESY_OS/engines/oflua/eyesy /home/music/openFrameworks/apps/myApps/eyesy
 cd ~/openFrameworks/apps/myApps/eyesy
+make
 
