@@ -1,0 +1,65 @@
+Installazione modulo ADC
+Lo modulo scelto est quello assai economico atque cinese
+WM8782S (basato su un ADC Cirrus Logic che a quanto pare e' stato dismesso)
+
+1) Collegamenti:
+VCC -> 5V (pin 1)
+GND -> GND (Pin 3)
+DGND -> GND (Pin 3)
+LRCK -> GPIO19 (pin 35)
+DATA -> GPIO20 (pin 38)
+BICK -> GPIO18 (pin 12)
+
+2) Configurazione hardware:
+I dip switch debbono essere:
+posizione "MASTER"
+posizione "24 Bit"  
+Vedi foto adc1.jpg, sul mio esemplare erano tutti e due verso il basso.
+
+I ponticelli debbono essere messi come in foto adc2.jpg, ovvero:
+96KHz (a 48 non sembra funzionare, e non mettendolo si va a 192)
+MCLK e 24.576M
+
+3) configurazione sw:
+    in config.txt abilitare il parametro 
+      dtparam=i2s=on
+
+sudo apt install python3-pip git raspberrypi-kernel-headers
+cd ~
+python3 -m venv /home/pi/.venv
+~/.venv/bin/pip install --upgrade adafruit-python-shell
+wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/i2smic.py
+git clone https://github.com/adafruit/Raspberry-Pi-Installer-Scripts.git
+nano Raspberry-Pi-Installer-Scripts/i2s_mic_module/snd-i2smic-rpi.c
+e modificare la linea:
+    .daifmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS,
+in:
+    .daifmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBM_CFM,
+
+Inoltre (da bookworm) sostituire la struttura 
+    simple_card_info
+con
+    asoc_simple_card_info
+
+(altrimenti non si compila una ciola)
+
+cd "Raspberry-Pi-Installer-Scripts/i2s_mic_module"
+make clean
+make
+make install
+
+se tutto si compila senza errori, installiamo definitivamente il modulone kernel nel raspberry:
+sudo ~/.venv/bin/python3 i2smic.py
+(Abilitare il load al boot del modulo)
+
+Eseguire lo reboot, e come per magilla digitare:
+arecord -l
+il modulo dovrebbe apparire nella lista dei device
+
+test:
+premesso che sembra funzionare solo a 96 e 192K (se si toglie il secondo giamper)
+
+arecord -D sysdefault:CARD=1 -c2 -f S32_LE -r 96000 -d 10 --vumeter=stereo test.wav
+quindi
+aplay test.wav
+
