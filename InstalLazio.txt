@@ -85,24 +85,11 @@ raspi-config: abilitare autologin con desktop (startx deve essere avviato)
 startx
 Avviare puredata
 
-*** obsoleto
-  installare openframework:
-  seguire le istruzioni su
-  https://openframeworks.cc/setup/raspberrypi/raspberry-pi-getting-started/
-  1. scaricare da https://github.com/openframeworks/openFrameworks/releases 
-    l'ultima versione disponibile per armv6l
-  2. cd /home/music/openFrameworks/scripts/linux/debian
-  3. sudo ./install_dependencies.sh
-  4. sudo ./install_codecs.sh
-  5. cd OF/scripts/linux
-    ./compileOF.sh
-  6. make Release -C /home/music/openFrameworks/libs/openFrameworksCompiled/project
-
-  installare lua addon:
-  https://github.com/danomatika/ofxLua
-*** obsoleto
 installare openFrameworks con
 ./install_lua.sh
+
+installazione modulo audio i2S:
+seguire il documento barbonico "Modulo ADC.txt"
 
 Connessione ssh:
 ssh music@eyesy

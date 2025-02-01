@@ -20,15 +20,16 @@ I ponticelli debbono essere messi come in foto adc2.jpg, ovvero:
 96KHz (a 48 non sembra funzionare, e non mettendolo si va a 192)
 MCLK e 24.576M
 
+ ---------------------------------------------------------------------------------------------
+ INSTALL-SSLAZIO1900
+ ---------------------------------------------------------------------------------------------
+
 3) configurazione sw:
     in config.txt abilitare il parametro 
       dtparam=i2s=on
 
-sudo apt install python3-pip git raspberrypi-kernel-headers
-cd ~
-python3 -m venv /home/pi/.venv
-~/.venv/bin/pip install --upgrade adafruit-python-shell
-wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/i2smic.py
+sudo apt install python3-pip raspberrypi-kernel-headers
+cd
 git clone https://github.com/adafruit/Raspberry-Pi-Installer-Scripts.git
 nano Raspberry-Pi-Installer-Scripts/i2s_mic_module/snd-i2smic-rpi.c
 e modificare la linea:
@@ -41,25 +42,46 @@ Inoltre (da bookworm) sostituire la struttura
 con
     asoc_simple_card_info
 
-(altrimenti non si compila una ciola)
-
 cd "Raspberry-Pi-Installer-Scripts/i2s_mic_module"
 make clean
 make
-make install
-
+sudo make install
 se tutto si compila senza errori, installiamo definitivamente il modulone kernel nel raspberry:
-sudo ~/.venv/bin/python3 i2smic.py
+
+cd
+mkdir .venv
+Sull'immagine originale di EYESY, dove ancora regna sovrano Pitone Secondo, potrebbe essere necessario installare:
+sudo apt install python3-venv
+
+python3 -m venv /home/music/.venv
+source ./.venv/bin/activate
+pip install --upgrade adafruit-python-shell
+wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/i2smic.py
+sudo python3 i2smic.py
 (Abilitare il load al boot del modulo)
+
+Se la cosa non va a buon fine segnalando l'impossibilita' di caricare adafruit-shell,
+sudo pip3 install adafruit-python-shell
+and the fear disappear.
 
 Eseguire lo reboot, e come per magilla digitare:
 arecord -l
 il modulo dovrebbe apparire nella lista dei device
 
 test:
-premesso che sembra funzionare solo a 96 e 192K (se si toglie il secondo giamper)
+premesso che sembra funzionare solo a 96 e 192K (se si toglie il secondo giamper), quindi scurdammoce 'o 48k....
 
-arecord -D sysdefault:CARD=1 -c2 -f S32_LE -r 96000 -d 10 --vumeter=stereo test.wav
+arecord -D sysdefault:CARD=0 -c2 -f S32_LE -r 96000 -d 10 --vumeter=stereo test.wav
 quindi
 aplay test.wav
+
+Modifica di /etc/asound.rc:
+con aplay -l identificare con gli occhi NOME e CARD# del dispositivone, per es:
+"card 0: sndrpii2scard [snd_rpi_i2s_card], device 0: simple-card_codec_link snd-soc-dummy-dai-0 [simple-card_codec_link snd-soc-dummy-dai-0]"
+
+sudo nano /etc/asound.rc
+defaults.pcm.!card snd_rpi_i2s_card  <---- nome trovato con aplay
+defaults.ctl.!card snd_rpi_i2s_card
+defaults.pcm.!device 0  <---- CARD# trovato con aplay
+defaults.ctl.!device 0
 

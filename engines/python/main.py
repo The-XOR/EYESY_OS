@@ -23,13 +23,15 @@ etc.clear_flags()
 # setup osc and callbacks
 osc.init(etc)
 
-# setup alsa sound
-sound.init(etc)
 
-# init pygame, this has to happen after sound is setup
+# init pygame, this has to happen after sound is setup ---> STO CAZZO!
 # but before the graphics stuff below
+os.environ["SDL_AUDIODRIVER"] = "dummy"
 pygame.init()
 clocker = pygame.time.Clock() # for locking fps
+
+# setup alsa sound
+sound.init(etc)
 
 print "pygame version " + pygame.version.ver
 
@@ -219,8 +221,6 @@ while 1:
     
     #draw the main screen, limit fps 30
     clocker.tick(30)
-
-time.sleep(1)
 
 print "Quit"
 
