@@ -1,0 +1,22 @@
+#N canvas 556 123 698 444 10;
+#X text 379 424 3;
+#X floatatom 254 296 5 0 0 0 - - -;
+#X obj 251 233 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 280 219 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X text 248 172 In INPUT mode \, bang the object to see value on the
+pin, f 27;
+#X text 427 236 args are (pin number \, mode (0=OUTPUT \, 1=INPUT)
+\, and default value, f 25;
+#X obj 280 240 metro 100;
+#X obj 252 371 tgl 55 0 empty empty empty 17 7 0 10 -4032 -1 -1 0 1
+;
+#X obj 250 333 == 0;
+#X obj 258 264 wiringPi_gpio 26 1 1;
+#X connect 1 0 8 0;
+#X connect 2 0 9 0;
+#X connect 3 0 6 0;
+#X connect 6 0 9 0;
+#X connect 8 0 7 0;
+#X connect 9 0 1 0;
