@@ -9219,6 +9219,16 @@
 			"Q5Ik7cqwIUmSdvUXUr43aaSQan0AAAAASUVORK5CYII="
 		)
 	)
+	(text "Pin 30"
+		(exclude_from_sim no)
+		(at 173.99 52.07 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "232d7720-3811-40cd-ade3-decda75ce768")
+	)
 	(text "Power off"
 		(exclude_from_sim no)
 		(at 40.132 63.246 0)
@@ -9260,7 +9270,7 @@
 		(uuid "45c77e9d-7128-4bc0-a516-267283e2d295")
 	)
 	(label "+5V"
-		(at 157.48 66.04 0)
+		(at 156.21 58.42 0)
 		(effects
 			(font
 				(size 1.27 1.27)
