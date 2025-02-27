@@ -224,6 +224,7 @@ class System:
         mode_folders = sorted(helpers.get_immediate_subdirectories(self.MODES_PATH), key=lambda s: s.lower() )
 
         for mode_folder in mode_folders :
+            if mode_folder == '.git' : continue
             mode_name = str(mode_folder)
             mode_path = self.MODES_PATH+mode_name+'/main.py'
             print mode_path
@@ -232,6 +233,7 @@ class System:
                 self.mode_names.append(mode_name)
                 got_a_mode = True
             except Exception, e:
+                print "error loading path : " + mode_path + "/" + mode_name
                 print traceback.format_exc()
         return got_a_mode
 
