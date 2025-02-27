@@ -1,6 +1,6 @@
 #/bin/bash
 echo starting Eyesy
-cd /home/music/Eyesy
+cd /home/music/EYESY_OS
 
 # make sure the log file exists
 touch /tmp/video.log
