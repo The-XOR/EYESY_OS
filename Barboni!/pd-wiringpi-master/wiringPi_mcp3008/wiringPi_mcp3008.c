@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 static t_class *wiringPi_mcp3008_class;
+static int initialized;
 
 typedef struct _wiringPi_mcp3008 {
     t_object x_obj;
@@ -35,6 +36,7 @@ static void *wiringPi_mcp3008_new(t_floatarg f, t_floatarg g)
     t_wiringPi_mcp3008 *x = (t_wiringPi_mcp3008 *)pd_new(wiringPi_mcp3008_class);
     x->x_out1 = outlet_new(&x->x_obj, gensym("list"));
     post("Using SPI port %f and reading %f ADCs", f, g);
+    initialized = 0;
     x->x_spi_pin = (int) f;
     x->x_adc_pin = (int) g;
     return (x);
@@ -42,11 +44,18 @@ static void *wiringPi_mcp3008_new(t_floatarg f, t_floatarg g)
 
 void wiringPi_mcp3008_setup_wiringPi(t_wiringPi_mcp3008 *x)
 {
-    wiringPiSetup();
-    int pin_n;
-    pin_n = 100 + x->x_spi_pin * 8;
-    mcp3004Setup (pin_n, x->x_spi_pin);
-    post("mcp_3004/8 is ready to read!");
+    if(initialized)
+    {
+        post("Already initialized");
+    } else
+    {
+        int pin_n = 100 + x->x_spi_pin * 8;
+        post("mcp_3004/8 : setup pin %d  spi_pin %d", pin_n, x->x_spi_pin);
+        wiringPiSetup();
+        mcp3004Setup (pin_n, x->x_spi_pin);
+        post("mcp_3004/8 is ready to read.", pin_n);
+        initialized = 1;
+    }
 }
 
 
@@ -58,5 +67,5 @@ void wiringPi_mcp3008_setup(void)
 		0, A_DEFFLOAT, A_DEFFLOAT, 0);
     class_addbang(wiringPi_mcp3008_class, wiringPi_mcp3008_bang);
     class_addmethod(wiringPi_mcp3008_class, (t_method)wiringPi_mcp3008_setup_wiringPi, gensym("setup_wiringPi"), 0);
-    post("wiringPi_mcp3008 version 0.01");
+    post("wiringPi_mcp3008 version 0.02");
 }

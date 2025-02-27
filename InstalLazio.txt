@@ -86,6 +86,7 @@ raspi-config: abilitare autologin con desktop (startx deve essere avviato)
 
 startx
 Avviare puredata
+IMPORTANTERRIMO: DISABILITARE LE SCHEDE AUDIO IN ENTRATA ED IN USCITA (Menu/Audio Settings)
 
 installare openFrameworks con
 ./install_lua.sh

@@ -50,10 +50,10 @@ static void *wiringPi_gpio_new(t_floatarg f1, t_floatarg f2, t_floatarg f3) {
 	
 	post("pin:%d, pin:%d, pin:%d,", x->x_gpio_pin, x->x_pin_mode, x->x_pin_val); 
 	
-    if (geteuid () != 0){
-    	pd_error(x, "you need to be root...");
-    	exit (0) ;
-  	}
+    // if (geteuid () != 0){
+    // 	pd_error(x, "you need to be root...");
+    // 	exit (0) ;
+  	// }
 
   	if (wiringPiSetup () == -1)	exit (1) ;
 

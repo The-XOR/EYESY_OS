@@ -4,5 +4,4 @@ tmp/
 *.pyc
 engines/oflua/eyesy/obj/
 engines/oflua/eyesy/bin/
-pd/wiringPi_gpio.l_arm
-pd/wiringPi_mcp3008.l_arm
+*.l_arm
