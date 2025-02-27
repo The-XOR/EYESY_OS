@@ -1,0 +1,87 @@
+Installazione modulo ADC
+Lo modulo scelto est quello assai economico atque cinese
+WM8782S (basato su un ADC Cirrus Logic che a quanto pare e' stato dismesso)
+
+1) Collegamenti:
+VCC -> 5V (pin 1)
+GND -> GND (Pin 3)
+DGND -> GND (Pin 3)
+LRCK -> GPIO19 (pin 35)
+DATA -> GPIO20 (pin 38)
+BICK -> GPIO18 (pin 12)
+
+2) Configurazione hardware:
+I dip switch debbono essere:
+posizione "MASTER"
+posizione "24 Bit"  
+Vedi foto adc1.jpg, sul mio esemplare erano tutti e due verso il basso.
+
+I ponticelli debbono essere messi come in foto adc2.jpg, ovvero:
+96KHz (a 48 non sembra funzionare, e non mettendolo si va a 192)
+MCLK e 24.576M
+
+ ---------------------------------------------------------------------------------------------
+ INSTALL-SSLAZIO1900
+ ---------------------------------------------------------------------------------------------
+
+3) configurazione sw:
+    in config.txt abilitare il parametro 
+      dtparam=i2s=on
+
+sudo apt install python3-pip raspberrypi-kernel-headers
+cd
+git clone https://github.com/adafruit/Raspberry-Pi-Installer-Scripts.git
+nano Raspberry-Pi-Installer-Scripts/i2s_mic_module/snd-i2smic-rpi.c
+e modificare la linea:
+    .daifmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBS_CFS,
+in:
+    .daifmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBM_CFM,
+
+Inoltre (da bookworm) sostituire la struttura 
+    simple_card_info
+con
+    asoc_simple_card_info
+
+cd "Raspberry-Pi-Installer-Scripts/i2s_mic_module"
+make clean
+make
+sudo make install
+se tutto si compila senza errori, installiamo definitivamente il modulone kernel nel raspberry:
+
+cd
+mkdir .venv
+Sull'immagine originale di EYESY, dove ancora regna sovrano Pitone Secondo, potrebbe essere necessario installare:
+sudo apt install python3-venv
+
+python3 -m venv /home/music/.venv
+source ./.venv/bin/activate
+pip install --upgrade adafruit-python-shell
+wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/i2smic.py
+sudo python3 i2smic.py
+(Abilitare il load al boot del modulo)
+
+Se la cosa non va a buon fine segnalando l'impossibilita' di caricare adafruit-shell,
+sudo pip3 install adafruit-python-shell
+and the fear disappear.
+
+Eseguire lo reboot, e come per magilla digitare:
+arecord -l
+il modulo dovrebbe apparire nella lista dei device
+
+test:
+premesso che sembra funzionare solo a 96 e 192K (se si toglie il secondo giamper), quindi scurdammoce 'o 48k....
+
+arecord -D sysdefault:CARD=0 -c2 -f S32_LE -r 96000 -d 10 --vumeter=stereo test.wav
+quindi
+aplay test.wav
+
+Modifica di /etc/asound.rc:
+con aplay -l identificare con gli occhi NOME e CARD# del dispositivone, per es:
+"card 0: sndrpii2scard [snd_rpi_i2s_card], device 0: simple-card_codec_link snd-soc-dummy-dai-0 [simple-card_codec_link snd-soc-dummy-dai-0]"
+
+sudo nano /etc/asound.rc
+defaults.pcm.!card snd_rpi_i2s_card  <---- nome trovato con aplay
+defaults.ctl.!card snd_rpi_i2s_card
+defaults.pcm.!device 0  <---- CARD# trovato con aplay
+defaults.ctl.!device 0
+

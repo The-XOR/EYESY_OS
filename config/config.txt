@@ -56,12 +56,12 @@ disable_overscan=1
 
 # Enable audio (loads snd_bcm2835)
 #dtparam=audio=on
-#enable_uart=1
+enable_uart=1
 
 #dtoverlay=wm8731-spi
 #dtoverlay=gpio-poweroff,gpiopin=12,active_low="y"
-#dtoverlay=pi3-miniuart-bt
-#dtoverlay=midi-uart0 
+dtoverlay=pi3-miniuart-bt
+dtoverlay=midi-uart0 
 #dtoverlay=pi3-act-led,gpio=24,activelow=on
 gpu_mem=256
 #disable_splash=1
