@@ -6,7 +6,7 @@ class MyServer(ServerThread):
     osc_msgs_recv = 0
     def __init__(self):
         ServerThread.__init__(self, 4000)
-    
+
     @make_method('/foo', 'ifs')
     def foo_callback(self, path, args):
         i, f, s = args
