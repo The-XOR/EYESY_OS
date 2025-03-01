@@ -10,6 +10,13 @@ import sound
 import osd
 import liblo
 import os
+
+def exitexit() :
+    print "EXIT exiting\n"
+    pygame.display.quit()
+    pygame.quit()
+    sys.exit()
+
 print "starting..."
 
 # create etc object
@@ -113,12 +120,7 @@ etc.set_mode_by_index(0)
 mode = sys.modules[etc.mode]
 
 midi_led_flashing = False
-
-def exitexit() :
-    print "EXIT exiting\n"
-    pygame.display.quit()
-    pygame.quit()
-    sys.exit()
+print "entering main loop..."
 
 while 1:
     
