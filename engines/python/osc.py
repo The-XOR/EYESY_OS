@@ -258,7 +258,7 @@ def init (etc_object) :
     osc_server.add_method("/key/11", 'f', singlekey_callback)
 
     # original osc methods
-    osc_server.add_method("/knobs", 'iiiii', knobs_callback)
+    osc_server.add_method("/knobs", 'iiiiii', knobs_callback)
     osc_server.add_method("/key", 'ii', keys_callback)
     osc_server.add_method("/mblob", 'b', mblob_callback)
     osc_server.add_method("/midicc", 'ii', midicc_callback)

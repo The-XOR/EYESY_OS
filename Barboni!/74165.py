@@ -2,9 +2,9 @@ import RPi.GPIO as GPIO
 import time
 
 # Define GPIO pins
-DATA_PIN = 22   # Q7 of second 74HC165
-CLOCK_PIN = 27  # CP (Clock)
-LATCH_PIN = 17  # PL (Parallel Load)
+DATA_PIN = 6   # Q7 of second 74HC165
+CLOCK_PIN = 3  # CP (Clock)
+LATCH_PIN = 27  # PL (Parallel Load)
 
 # Setup GPIO
 GPIO.setmode(GPIO.BCM)
@@ -15,7 +15,7 @@ GPIO.setup(LATCH_PIN, GPIO.OUT, initial=GPIO.HIGH)
 def stable_read(pin):
     """Read a GPIO pin multiple times to reduce glitches."""
     value1 = GPIO.input(pin)
-    time.sleep(0.00005)  # 500µs delay
+    time.sleep(0.00005)  
     value2 = GPIO.input(pin)
     return value1 if value1 == value2 else 0  # If mismatch, assume low
 
