@@ -43,7 +43,7 @@ static void *wiringPi_gpio_new(t_floatarg f1, t_floatarg f2, t_floatarg f3) {
 	x->x_pin_mode = f2;
 	x->x_pin_val  = f3;
 	
-	post("pin:%d, pin:%d, pin:%d,", x->x_gpio_pin, x->x_pin_mode, x->x_pin_val); 
+	post("gpio pin:%d, mode :%d, value:%d,", x->x_gpio_pin, x->x_pin_mode, x->x_pin_val); 
 	
     // if (geteuid () != 0){
     // 	pd_error(x, "you need to be root...");
@@ -76,7 +76,7 @@ void wiringPi_gpio_setup(void)
 		(t_newmethod)wiringPi_gpio_new, 
 		0, sizeof(t_wiringPi_gpio), 
 		CLASS_DEFAULT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
-	//class_addfloat(wiringPi_gpio_class, wiringPi_gpio_float);
+	class_addfloat(wiringPi_gpio_class, wiringPi_gpio_float);
     class_addbang(wiringPi_gpio_class, wiringPi_gpio_bang);
     post("wiringPi_gpio version 0.01");
 }
