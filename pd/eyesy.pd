@@ -1,6 +1,5 @@
-#N canvas 314 108 1366 674 10;
-#X obj 106 404 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
-1;
+#N canvas 316 180 1366 674 10;
+#X obj 106 404 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 108 278 packOSC;
 #X obj 106 368 udpsend;
 #X obj 41 170 r oscOut;
@@ -87,9 +86,9 @@
 #X obj 394 428 i;
 #X obj 394 404 + 1;
 #X obj 394 358 / 1024;
-#X floatatom 582 457 5 0 0 0 - - -;
-#X floatatom 421 459 5 0 0 0 - - -;
-#X floatatom 213 446 5 0 0 0 - - -;
+#X floatatom 582 457 5 0 0 0 - - - 0;
+#X floatatom 421 459 5 0 0 0 - - - 0;
+#X floatatom 213 446 5 0 0 0 - - - 0;
 #X obj 882 395 textfile;
 #X msg 1054 242 clear;
 #X msg 833 259 add midiCh \$1;
@@ -105,8 +104,7 @@
 #X obj 889 226 i 0;
 #X obj 846 214 i 1;
 #X obj 893 130 t b b b b;
-#X obj 828 54 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
+#X obj 828 54 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000;
 #X obj 194 282 r knob1;
 #X obj 388 330 spigot 0;
 #X obj 555 320 spigot 0;
@@ -126,10 +124,8 @@
 #X text 108 121 enable overlay;
 #X msg 502 221 send /sline 1 Trigger Source LINK Quarter Note;
 #X msg 516 242 send /sline 1 Trigger Source LINK Eighth Note;
-#X msg 521 267 send /sline 1 Trigger Source MIDI Clock Quarter Note
-;
-#X msg 537 290 send /sline 1 Trigger Source MIDI Clock Eighth Note
-;
+#X msg 521 267 send /sline 1 Trigger Source MIDI Clock Quarter Note;
+#X msg 537 290 send /sline 1 Trigger Source MIDI Clock Eighth Note;
 #X obj 502 168 sel 1 2 3 4 5 6;
 #X connect 0 0 1 0;
 #X connect 2 0 1 0;
@@ -164,12 +160,11 @@
 #X obj 739 28 r saveShiftParams;
 #X obj 827 76 t b b;
 #X msg 617 129 write /sdcard/System/shift-params.txt;
-#X obj 1036 286 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
+#X obj 1036 286 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000;
 #X obj 855 428 route inputGain trigSource midiCh;
-#X floatatom 850 456 5 0 0 0 - - -;
-#X floatatom 927 454 5 0 0 0 - - -;
-#X floatatom 1008 453 5 0 0 0 - - -;
+#X floatatom 850 456 5 0 0 0 - - - 0;
+#X floatatom 927 454 5 0 0 0 - - - 0;
+#X floatatom 1008 453 5 0 0 0 - - - 0;
 #X obj 1075 281 r recallShiftParams;
 #X obj 811 494 s inputGain;
 #X obj 902 492 s trigSource;
@@ -252,44 +247,34 @@
 #X connect 65 0 4 0;
 #X connect 66 0 10 0;
 #X restore 715 123 pd shift-params;
-#N canvas 0 94 1366 674 knobs-and-keys 0;
-#X floatatom 707 313 5 0 0 0 - - -;
-#X floatatom 631 312 5 0 0 0 - - -;
-#X floatatom 562 311 5 0 0 0 - - -;
-#X floatatom 480 308 5 0 0 0 - - -;
+#N canvas 0 36 1920 1010 knobs-and-keys 0;
+#X floatatom 707 313 5 0 0 0 - - - 0;
+#X floatatom 631 312 5 0 0 0 - - - 0;
+#X floatatom 562 311 5 0 0 0 - - - 0;
+#X floatatom 480 308 5 0 0 0 - - - 0;
 #X obj 484 449 pack 0 0 0 0 0;
 #X obj 418 648 s oscOut;
 #X obj 1103 518 s oscOut;
-#X obj 2535 382 change -1;
-#X obj 2535 431 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
+#X obj 2531 400 change -1;
+#X obj 2535 431 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 2702 391 change -1;
-#X obj 2702 440 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
-#X obj 2368 374 change -1;
-#X obj 2368 423 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
+#X obj 2702 440 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
+#X obj 2368 389 change -1;
+#X obj 2368 423 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 1687 403 change -1;
-#X obj 1687 452 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
+#X obj 1687 452 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 2007 388 change -1;
-#X obj 2007 437 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
+#X obj 2007 437 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 1485 395 change -1;
-#X obj 1485 444 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
+#X obj 1485 444 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 2183 384 change -1;
-#X obj 2182 446 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
+#X obj 2182 446 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 1286 401 change -1;
-#X obj 1286 436 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
+#X obj 1286 436 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 1858 417 change -1;
-#X obj 1858 466 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
+#X obj 1858 466 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 1103 408 change -1;
-#X obj 1103 457 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
+#X obj 1103 457 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 1857 544 s oscOut;
 #X obj 1288 505 s oscOut;
 #X obj 2182 527 s oscOut;
@@ -346,27 +331,38 @@
 #X text 2551 467 KEY 1: OSD;
 #X text 2785 638 Heavily XORified;
 #X text 2715 468 KEY 2: SHIFT;
-#X floatatom 399 308 5 0 0 0 - - -;
+#X floatatom 399 308 5 0 0 0 - - - 0;
 #X obj 482 151 metro 100;
-#X obj 785 15 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
+#X obj 785 15 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000;
 #X obj 629 337 t b f;
 #X obj 398 335 t b f;
 #X obj 481 334 t b f;
 #X obj 562 332 t b f;
-#X msg 415 558 sendtyped /knobs iiiiii \$1 \$2 \$3 \$4 \$5 0;
+#X msg 417 612 sendtyped /knobs iiiiii \$1 \$2 \$3 \$4 \$5 0;
 #X obj 1587 170 metro 120;
-#X obj 1105 374 & 8192;
-#X obj 1289 367 & 32768;
-#X obj 1486 359 & 1;
-#X obj 1685 371 & 1024;
-#X obj 1862 370 & 16384;
-#X obj 2023 356 & 64;
-#X obj 2197 343 & 2048;
+#X obj 1106 334 & 8192;
+#X obj 1286 336 & 32768;
+#X obj 1492 335 & 1;
+#X obj 1672 342 & 1024;
+#X obj 1849 341 & 16384;
+#X obj 2010 327 & 64;
+#X obj 2182 332 & 2048;
 #X obj 2365 338 & 4096;
-#X obj 2537 349 & 512;
-#X obj 2709 352 & 256;
+#X obj 2531 337 & 512;
+#X obj 2704 328 & 256;
 #X obj 1586 197 wiringPi_74165 2 9 22;
+#X obj 1108 367 > 0;
+#X obj 1289 362 > 0;
+#X obj 1487 366 > 0;
+#X obj 1672 365 > 0;
+#X obj 1849 364 > 0;
+#X obj 2010 350 > 0;
+#X obj 2182 355 > 0;
+#X obj 2365 361 > 0;
+#X obj 2531 368 > 0;
+#X obj 2702 359 > 0;
+#X obj 477 562 r enableKnobs;
+#X obj 420 588 spigot 1;
 #X connect 0 0 4 0;
 #X connect 0 0 50 0;
 #X connect 1 0 86 0;
@@ -402,7 +398,7 @@
 #X connect 41 0 30 0;
 #X connect 42 0 28 0;
 #X connect 43 0 6 0;
-#X connect 45 0 90 0;
+#X connect 45 0 114 0;
 #X connect 45 1 46 0;
 #X connect 47 0 65 0;
 #X connect 48 0 49 0;
@@ -445,16 +441,16 @@
 #X connect 89 1 4 1;
 #X connect 90 0 5 0;
 #X connect 91 0 102 0;
-#X connect 92 0 25 0;
-#X connect 93 0 21 0;
-#X connect 94 0 17 0;
-#X connect 95 0 13 0;
-#X connect 96 0 23 0;
-#X connect 97 0 15 0;
-#X connect 98 0 19 0;
-#X connect 99 0 11 0;
-#X connect 100 0 7 0;
-#X connect 101 0 9 0;
+#X connect 92 0 103 0;
+#X connect 93 0 104 0;
+#X connect 94 0 105 0;
+#X connect 95 0 106 0;
+#X connect 96 0 107 0;
+#X connect 97 0 108 0;
+#X connect 98 0 109 0;
+#X connect 99 0 110 0;
+#X connect 100 0 111 0;
+#X connect 101 0 112 0;
 #X connect 102 0 94 0;
 #X connect 102 0 93 0;
 #X connect 102 0 92 0;
@@ -465,6 +461,18 @@
 #X connect 102 0 99 0;
 #X connect 102 0 101 0;
 #X connect 102 0 100 0;
+#X connect 103 0 25 0;
+#X connect 104 0 21 0;
+#X connect 105 0 17 0;
+#X connect 106 0 13 0;
+#X connect 107 0 23 0;
+#X connect 108 0 15 0;
+#X connect 109 0 19 0;
+#X connect 110 0 11 0;
+#X connect 111 0 7 0;
+#X connect 112 0 9 0;
+#X connect 113 0 114 1;
+#X connect 114 0 90 0;
 #X restore 713 45 pd knobs-and-keys;
 #N canvas 0 94 1366 674 wifi 0;
 #N canvas 4 50 450 300 once 0;
@@ -499,8 +507,7 @@
 #X msg 407 188 sudo systemctl start createap;
 #X obj 180 34 r shiftKey;
 #X msg 303 222 sudo systemctl stop createap;
-#X obj 26 63 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
+#X obj 26 63 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000;
 #X text 231 70 The XOR Disabilita AP;
 #X obj 216 195 t b b b;
 #X connect 0 0 1 0;
@@ -524,11 +531,11 @@
 #X obj 534 502 s oscOut;
 #X obj 636 349 r link-session-present;
 #X obj 993 48 r trigSource;
-#X floatatom 993 70 5 0 0 0 - - -;
+#X floatatom 993 70 5 0 0 0 - - - 0;
 #X msg 410 178 \; pd dsp 1 \;;
 #X msg 636 414 sendtyped /linkpresent i \$1;
 #X obj 636 384 i;
-#X floatatom 995 123 5 0 0 0 - - -;
+#X floatatom 995 123 5 0 0 0 - - - 0;
 #X obj 995 101 r midiCh;
 #X obj 270 77 t b b b b;
 #N canvas -164 238 1366 674 led 0;
@@ -548,12 +555,9 @@
 #X obj 147 235 == 0;
 #X obj 204 236 == 0;
 #X obj 245 232 == 0;
-#X obj 129 275 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
-1;
-#X obj 232 274 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
-1;
-#X obj 360 274 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
-1;
+#X obj 129 275 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
+#X obj 232 274 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
+#X obj 360 274 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X text 378 273 B;
 #X text 248 275 G;
 #X text 146 273 R;
@@ -583,16 +587,15 @@
 #X connect 18 0 23 0;
 #X restore 714 71 pd led;
 #X obj 497 167 s recallShiftParams;
-#X floatatom 995 174 5 0 0 0 - - -;
+#X floatatom 995 174 5 0 0 0 - - - 0;
 #X obj 995 152 r inputGain;
 #N canvas 11 50 735 474 metro-and-trig 0;
 #N canvas 8 50 1216 609 metronome 0;
-#X floatatom 393 117 5 0 0 1 tempo - -;
+#X floatatom 393 117 5 0 0 1 tempo - - 0;
 #X obj 165 127 * 360;
 #X obj 165 149 i;
 #X obj 616 57 midirealtimein;
-#X text 932 98 MIDI 248 = clock \; 250 = start \; 251 = continue. 252
-= stop;
+#X text 932 98 MIDI 248 = clock \; 250 = start \; 251 = continue. 252 = stop;
 #X obj 616 108 sel 248 250 251 252 254, f 38;
 #X obj 616 244 f;
 #X obj 682 243 + 1;
@@ -609,18 +612,17 @@
 #X msg 144 127 resolution \$1;
 #X msg 247 147 reset \$1 \$2;
 #X obj 247 126 pack f f;
-#X floatatom 266 247 5 0 0 1 beat_time - -;
-#X floatatom 180 285 5 0 0 1 step - -;
-#X floatatom 378 246 5 0 0 1 tempo - -;
-#X obj 59 105 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
-1;
+#X floatatom 266 247 5 0 0 1 beat_time - - 0;
+#X floatatom 180 285 5 0 0 1 step - - 0;
+#X floatatom 378 246 5 0 0 1 tempo - - 0;
+#X obj 59 105 tgl 15 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000 0 1;
 #X obj 180 199 abl_link~ 1 0 4 134;
-#X floatatom 355 107 5 0 0 2 tempo - -;
-#X floatatom 292 107 5 0 0 2 quantum - -;
-#X floatatom 247 107 5 0 0 2 beat - -;
-#X floatatom 144 107 5 0 0 2 resolution - -;
+#X floatatom 355 107 5 0 0 2 tempo - - 0;
+#X floatatom 292 107 5 0 0 2 quantum - - 0;
+#X floatatom 247 107 5 0 0 2 beat - - 0;
+#X floatatom 144 107 5 0 0 2 resolution - - 0;
 #X msg 59 125 connect \$1;
-#X floatatom 510 231 5 0 0 0 - - -;
+#X floatatom 510 231 5 0 0 0 - - - 0;
 #X obj 510 209 r #abl_link_num_peers;
 #X obj 32 45 loadbang;
 #X obj 32 67 delay 100;
@@ -658,10 +660,8 @@
 #X obj 616 476 clockfix;
 #X obj 616 536 outlet midiclk;
 #X obj 165 536 outlet linkclk;
-#X text 225 14 This metronome outputs 360 ticks per beat numbered 0-359.
-;
-#X text 295 471 the clockfix object ensures there are always 360 ticks
-numbered 0-359., f 40;
+#X text 225 14 This metronome outputs 360 ticks per beat numbered 0-359.;
+#X text 295 471 the clockfix object ensures there are always 360 ticks numbered 0-359., f 40;
 #X connect 1 0 2 0;
 #X connect 2 0 15 0;
 #X connect 3 0 5 0;
@@ -684,23 +684,17 @@ numbered 0-359., f 40;
 #X obj 210 97 r midiNoteIn;
 #X obj 210 119 unpack 0 0;
 #X obj 210 144 stripnote;
-#X obj 210 172 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
+#X obj 210 172 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000;
 #X msg 93 311 sendtyped /trig i 1;
 #X obj 338 108 r trigSource;
-#X floatatom 339 155 5 0 0 0 - - -;
-#X text 245 27 trigger sources are: 1 = Audio 2 = Link 1/4 3 = Link
-1/8 4 = Midi clk 1/4 5 = Midi clk 1/8 6 = Midi notes;
+#X floatatom 339 155 5 0 0 0 - - - 0;
+#X text 245 27 trigger sources are: 1 = Audio 2 = Link 1/4 3 = Link 1/8 4 = Midi clk 1/4 5 = Midi clk 1/8 6 = Midi notes;
 #X obj 46 142 sel 0 180;
 #X obj 133 143 sel 0 180;
-#X obj 133 171 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 164 169 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 44 172 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 75 170 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
+#X obj 133 171 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000;
+#X obj 164 169 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000;
+#X obj 44 172 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000;
+#X obj 75 170 bng 15 250 50 0 empty empty empty 17 7 0 10 #fcfcfc #000000 #000000;
 #X msg 210 206 6;
 #X msg 43 210 2;
 #X msg 85 207 3;
@@ -756,9 +750,7 @@ numbered 0-359., f 40;
 #X obj 865 380 i;
 #X msg 865 410 sendtyped /atrigen i \$1;
 #X obj 865 338 r audioTrigEnable;
-#X text 637 275 there isn't a mechanism for this patch to know when
-the video engine is ready to receive params \, so we just send them
-every second...;
+#X text 637 275 there isn't a mechanism for this patch to know when the video engine is ready to receive params \, so we just send them every second...;
 #X obj 108 491 s oscConnected;
 #X obj 42 229 spigot 0;
 #X obj 79 198 r oscConnected;

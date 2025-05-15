@@ -2,6 +2,7 @@
 #include <wiringPi.h>
 #include <unistd.h>
 
+#define USLEEP_TIME 1000
 static t_class *wiringPi_74165_class;
 
 typedef struct _wiringPi_74165
@@ -14,7 +15,7 @@ typedef struct _wiringPi_74165
 static int stable_read(int pin)
 {
     int value1 = digitalRead(pin);
-    usleep(500);
+    usleep(USLEEP_TIME);
     int value2 = digitalRead(pin);
     return value1 == value2 ? value1 : 0;  // If mismatch, assume low
 }
@@ -22,7 +23,7 @@ static int stable_read(int pin)
 static void wiringPi_74165_bang(t_wiringPi_74165 *x)
 {
     digitalWrite (x->PL, LOW);
-    usleep(1000);
+    usleep(USLEEP_TIME);
     digitalWrite (x->PL, HIGH);
 
     int data = 0;
@@ -31,9 +32,9 @@ static void wiringPi_74165_bang(t_wiringPi_74165 *x)
         int bit = stable_read(x->DATA);
         data = (data << 1) | bit ;
         digitalWrite(x->CP, HIGH);
-        usleep(1000);
+        usleep(USLEEP_TIME);
         digitalWrite(x->CP, LOW);
-        usleep(1000);
+        usleep(USLEEP_TIME);
     }
    	outlet_float(x->x_out1, data);
 }
